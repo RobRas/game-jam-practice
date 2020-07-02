@@ -2,14 +2,17 @@ extends Node
 
 export(int) var move_speed = 12000
 export(NodePath) var ground_checker_path
+export(NodePath) var animated_sprite_path
 
-var parent = null
+var parent
 var ground_checker
+var animated_sprite
 
 var facing_right = true
 
 func _ready():
 	ground_checker = get_node(ground_checker_path)
+	animated_sprite = get_node(animated_sprite_path)
 
 func init(parent):
 	self.parent = parent
@@ -38,7 +41,6 @@ func _parse_horizontal_input():
 	
 	parent.velocity.x = horizontal
 	
-	if horizontal != 0 and ground_checker.is_grounded:
+	if ground_checker.is_grounded and horizontal != 0:
 		$RunAudio.play()
-	else:
-		$RunAudio.stop()
+		animated_sprite.play("Run")

@@ -69,14 +69,16 @@ script = ExtResource( 2 )
 [node name="Gravity" parent="Abilities" instance=ExtResource( 6 )]
 
 [node name="Jump" parent="Abilities" instance=ExtResource( 7 )]
+animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
 
 [node name="HorizontalMovement" parent="Abilities" instance=ExtResource( 5 )]
+animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
 
 [node name="Selectable" parent="Abilities" instance=ExtResource( 9 )]
 
 [node name="SpriteScaling" type="Node2D" parent="."]
 
-[node name="Sprite" type="AnimatedSprite" parent="SpriteScaling"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="SpriteScaling"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 7 )
 animation = "Jump"
