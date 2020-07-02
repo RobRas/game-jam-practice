@@ -32,3 +32,6 @@ func _physics_process(delta):
 
 func jump():
 	velocity.y = jump_speed
+
+func hazard_hit():
+	print("ow")
