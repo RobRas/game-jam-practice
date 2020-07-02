@@ -64,3 +64,5 @@ func _on_control_enabled(_mole):
 
 func _on_control_disabled(_mole):
 	controlled = false
+	if running:
+		animated_sprite.stop()
