@@ -7,6 +7,8 @@ export(int) var gravity = 20000
 var velocity = Vector2()
 
 var is_grounded = false
+
+var facing_right = true
 	
 	
 
@@ -42,9 +44,14 @@ func _parse_horizontal_input():
 	var horizontal = 0
 	
 	if Input.is_action_pressed("move_left"):
+		if facing_right:
+			facing_right = false
+			scale.x = -scale.x
 		horizontal -= move_speed
-	
-	if Input.is_action_pressed("move_right"):
+	elif Input.is_action_pressed("move_right"):
+		if not facing_right:
+			facing_right = true
+			scale.x = -scale.x
 		horizontal += move_speed
 	
 	velocity.x = horizontal
