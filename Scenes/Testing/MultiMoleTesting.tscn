@@ -6,6 +6,7 @@
 [ext_resource path="res://Scenes/Hazard.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Art_Assets/Background.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/Naked.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Food.tscn" type="PackedScene" id=6]
 
 [node name="MultiMoleTesting" type="Node"]
 
@@ -52,3 +53,6 @@ position = Vector2( 139, 49 )
 position = Vector2( 253.85, 37.1 )
 
 [node name="MoleController" parent="." instance=ExtResource( 3 )]
+
+[node name="Food" parent="." instance=ExtResource( 6 )]
+position = Vector2( 466.451, 113.05 )
