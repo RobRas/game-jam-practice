@@ -10,9 +10,6 @@ extents = Vector2( 191.75, 32.0452 )
 
 [node name="Mole" parent="." instance=ExtResource( 2 )]
 position = Vector2( 461.242, 231.18 )
-move_speed = 12000
-jump_speed = -14000
-gravity = 8000
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2( 468.906, 376.889 )
