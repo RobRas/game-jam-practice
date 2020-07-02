@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 
 signal clicked(mole)
+signal enabled(mole)
+signal disabled(mole)
 
 export(int) var move_speed = 12000
 export(int) var jump_speed = -14000
@@ -81,6 +83,16 @@ func _parse_horizontal_input():
 		$Audio/RunAudio.stop()
 	elif not $Audio/RunAudio.playing:
 		$Audio/RunAudio.play()
+
+func enable(enabled):
+	if self.enabled == enabled:
+		return
+	
+	self.enabled = enabled
+	if self.enabled:
+		emit_signal("enabled", self)
+	else:
+		emit_signal("disabled", self)
 
 func _apply_gravity(delta):
 	if not is_grounded:
