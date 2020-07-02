@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Art_Assets/Mole_Avatar/Orange Vest Mole.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Mole.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Audio/Jump.wav" type="AudioStream" id=5]
 [ext_resource path="res://Audio/Moving.wav" type="AudioStream" id=6]
 [ext_resource path="res://Audio/Landing.wav" type="AudioStream" id=7]
+[ext_resource path="res://Art_Assets/LightMask.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 30 )
@@ -50,3 +51,7 @@ stream = ExtResource( 6 )
 
 [node name="LandAudio" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 7 )
+
+[node name="Light2D" type="Light2D" parent="."]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
