@@ -5,22 +5,14 @@ export(int) var jump_speed = -14000
 export(int) var gravity = 20000
 
 var velocity = Vector2()
+
 var is_grounded = false
 	
 	
 
 func _physics_process(delta):
-	is_grounded = $GroundChecker.is_grounded()
-	if is_grounded:
-		velocity.y = 0
-	
-	velocity.x = 0
-	
-	if Input.is_action_pressed("move_left"):
-		velocity.x -= move_speed
-	
-	if Input.is_action_pressed("move_right"):
-		velocity.x += move_speed
+	_set_grounding()
+	_parse_horizontal_input()
 	
 	if Input.is_action_just_pressed("jump") && is_grounded:
 		jump()
@@ -32,6 +24,32 @@ func _physics_process(delta):
 
 func jump():
 	velocity.y = jump_speed
+	$Audio/JumpAudio.play()
 
 func hazard_hit():
 	print("ow")
+	$Audio/DeathAudio.play()
+
+func _set_grounding():
+	var was_grounded = is_grounded
+	is_grounded = $GroundChecker.is_grounded()
+	if is_grounded:
+		velocity.y = 0
+		if not was_grounded:
+			$Audio/LandAudio.play()
+
+func _parse_horizontal_input():
+	var horizontal = 0
+	
+	if Input.is_action_pressed("move_left"):
+		horizontal -= move_speed
+	
+	if Input.is_action_pressed("move_right"):
+		horizontal += move_speed
+	
+	velocity.x = horizontal
+	
+	if horizontal == 0 or not is_grounded:
+		$Audio/RunAudio.stop()
+	elif not $Audio/RunAudio.playing:
+		$Audio/RunAudio.play()
