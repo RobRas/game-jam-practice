@@ -14,6 +14,7 @@ extents = Vector2( 16, 30 )
 [node name="Mole" type="KinematicBody2D" groups=[
 "Moles",
 ]]
+input_pickable = true
 collision_layer = 2
 collision_mask = 13
 script = ExtResource( 2 )
@@ -52,3 +53,5 @@ stream = ExtResource( 6 )
 
 [node name="LandAudio" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 7 )
+[connection signal="mouse_entered" from="." to="." method="_on_Mole_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Mole_mouse_exited"]
