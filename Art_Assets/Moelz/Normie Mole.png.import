@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Orange Vest Mole.png-c0a845f29e124584618d79c1aec7ddb5.stex"
+path="res://.import/Normie Mole.png-aaf46e604c40a42f5fbdd5d4b235a16f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art_Assets/Mole_Avatar/Orange Vest Mole.png"
-dest_files=[ "res://.import/Orange Vest Mole.png-c0a845f29e124584618d79c1aec7ddb5.stex" ]
+source_file="res://Art_Assets/Moelz/Normie Mole.png"
+dest_files=[ "res://.import/Normie Mole.png-aaf46e604c40a42f5fbdd5d4b235a16f.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
