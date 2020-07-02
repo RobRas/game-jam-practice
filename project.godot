@@ -16,7 +16,6 @@ _global_script_class_icons={
 [application]
 
 config/name="Mole Town"
-run/main_scene="res://Scenes/Hazard.tscn"
 config/icon="res://icon.png"
 
 [input]
