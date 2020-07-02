@@ -60,11 +60,8 @@ stream = ExtResource( 7 )
 [node name="Light2D" type="Light2D" parent="."]
 position = Vector2( 0.524475, -0.699303 )
 texture = ExtResource( 8 )
-<<<<<<< HEAD
 mode = 3
-=======
 
 [node name="SelectionTween" type="Tween" parent="."]
 [connection signal="mouse_entered" from="." to="." method="_on_Mole_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Mole_mouse_exited"]
->>>>>>> c11e7213b990a15faddbd4ebf36070706ac2e523
