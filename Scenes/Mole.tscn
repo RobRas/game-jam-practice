@@ -11,7 +11,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 30 )
 
-[node name="Mole" type="KinematicBody2D"]
+[node name="Mole" type="KinematicBody2D" groups=[
+"Moles",
+]]
 collision_layer = 2
 collision_mask = 13
 script = ExtResource( 2 )

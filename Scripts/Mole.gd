@@ -9,6 +9,9 @@ var velocity = Vector2()
 var is_grounded = false
 
 var facing_right = true
+
+
+var enabled = false
 	
 	
 
