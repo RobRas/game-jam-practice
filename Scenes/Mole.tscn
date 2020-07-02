@@ -7,46 +7,10 @@
 [ext_resource path="res://Audio/Jump.wav" type="AudioStream" id=5]
 [ext_resource path="res://Audio/Moving.wav" type="AudioStream" id=6]
 [ext_resource path="res://Audio/Landing.wav" type="AudioStream" id=7]
-[ext_resource path="res://Art_Assets/LightMask.png" type="Texture" id=8]
-
-[sub_resource type="Animation" id=3]
-resource_name = "Jump"
-length = 0.15
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ 5, 4 ]
-}
-[ext_resource path="res://Art_Assets/LightMaskMasked2.png" type="Texture" id=8]
-
-[sub_resource type="Animation" id=1]
-resource_name = "Run"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 0, 1, 2, 3, 4, 5 ]
-}
-
-[sub_resource type="RectangleShape2D" id=2]
 [ext_resource path="res://Art_Assets/LightMaskMasked2.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 30 )
+extents = Vector2( 10, 21.2391 )
 
 [node name="Mole" type="KinematicBody2D" groups=[
 "Moles",
@@ -63,9 +27,6 @@ scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 vframes = 6
 frame = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
-anims/Run = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -2.22453, 2.21464 )
@@ -99,9 +60,8 @@ stream = ExtResource( 6 )
 stream = ExtResource( 7 )
 
 [node name="Light2D" type="Light2D" parent="."]
-position = Vector2( 0.524475, -0.699303 )
+position = Vector2( 0.890732, -1.06557 )
 texture = ExtResource( 8 )
-mode = 3
 
 [node name="SelectionTween" type="Tween" parent="."]
 [connection signal="mouse_entered" from="." to="." method="_on_Mole_mouse_entered"]

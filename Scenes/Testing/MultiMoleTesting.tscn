@@ -44,6 +44,6 @@ scale = Vector2( 1.01206, 0.992703 )
 position = Vector2( 139, 49 )
 
 [node name="Mole3" parent="Moles" instance=ExtResource( 2 )]
-position = Vector2( 246.25, 32.35 )
+position = Vector2( 253.85, 37.1 )
 
 [node name="MoleController" parent="." instance=ExtResource( 3 )]
