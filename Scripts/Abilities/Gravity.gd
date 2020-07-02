@@ -1,6 +1,6 @@
 extends Node
 
-export(int) var gravity = 20000
+export(int) var gravity = 50000
 export(NodePath) var ground_checker_path
 
 export(AudioStream) var land_audio_stream
