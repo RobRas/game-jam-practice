@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 export(int) var move_speed = 12000
 export(int) var jump_speed = -14000
-export(int) var gravity = 8000
+export(int) var gravity = 20000
 
 var velocity = Vector2()
 var is_grounded = false
@@ -11,6 +11,8 @@ var is_grounded = false
 
 func _physics_process(delta):
 	is_grounded = $GroundChecker.is_grounded()
+	if is_grounded:
+		velocity.y = 0
 	
 	velocity.x = 0
 	
