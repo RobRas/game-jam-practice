@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Mole.tscn" type="PackedScene" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 191.75, 32.0452 )
+
+[node name="MovementTesting" type="Node"]
+
+[node name="Mole" parent="." instance=ExtResource( 2 )]
+position = Vector2( 461.242, 231.18 )
+move_speed = 12000
+jump_speed = -14000
+gravity = 8000
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2( 468.906, 376.889 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Ground"]
+scale = Vector2( 6, 1 )
+texture = ExtResource( 1 )

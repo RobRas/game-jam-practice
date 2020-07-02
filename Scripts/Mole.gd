@@ -6,27 +6,22 @@ export(int) var gravity = 800
 
 var velocity = Vector2()
 var is_grounded = false
-
-
-func _input(event):
-	var horizontal: int = 0
-	
-	if event.is_action("move_left"):
-		horizontal -= move_speed
-	
-	if event.is_action("move_right"):
-		horizontal += move_speed
-	
-	velocity.x = horizontal
-	
-	if event.is_action_pressed("jump") && is_grounded:
-		jump()
-	
 	
 	
 
 func _physics_process(delta):
 	is_grounded = $GroundChecker.is_colliding()
+	
+	velocity.x = 0
+	
+	if Input.is_action_pressed("move_left"):
+		velocity.x -= move_speed
+	
+	if Input.is_action_pressed("move_right"):
+		velocity.x += move_speed
+	
+	if Input.is_action_just_pressed("jump") && is_grounded:
+		jump()
 	
 	velocity.y += gravity * delta   #times delta twice due to acceleration
 
