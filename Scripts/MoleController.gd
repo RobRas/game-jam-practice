@@ -8,7 +8,7 @@ func _ready():
 	moles = get_tree().get_nodes_in_group("Moles")
 	
 	for mole in moles:
-		mole.connect("clicked", self, "_on_mole_clicked")
+		mole.get_node("Abilities/Selectable").connect("selected", self, "_on_mole_selected")
 	
 	set_current_mole(moles[current_mole_index])
 
@@ -23,7 +23,7 @@ func set_current_mole(new_mole):
 	current_mole_index = moles.find(new_mole)
 	new_mole.enable(true)
 
-func _on_mole_clicked(mole):
+func _on_mole_selected(mole):
 	if mole == moles[current_mole_index]:
 		return
 	set_current_mole(mole)
