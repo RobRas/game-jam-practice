@@ -26,7 +26,7 @@ func init(parent):
 
 func _process(delta):
 	if not controlled:
-		if ground_checker.is_grounded:
+		if ground_checker.is_colliding:
 			parent.velocity.x = 0
 		return
 	
@@ -48,7 +48,7 @@ func _parse_horizontal_input():
 	
 	parent.velocity.x = horizontal
 	
-	if ground_checker.is_grounded and horizontal != 0:
+	if ground_checker.is_colliding and horizontal != 0:
 		if not running:
 			$RunAudio.play()
 			animated_sprite.play("Run")

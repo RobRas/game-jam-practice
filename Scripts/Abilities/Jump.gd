@@ -16,7 +16,7 @@ var controlled = false
 
 func _ready():
 	ground_checker = get_node(ground_checker_path)
-	ground_checker.connect("left_ground", self, "_on_left_ground")
+	ground_checker.connect("stopped_colliding", self, "_on_left_ground")
 	animated_sprite = get_node(animated_sprite_path)
 	
 	if jump_audio_stream:
@@ -29,7 +29,7 @@ func _process(delta):
 	if not controlled:
 		return
 	
-	if Input.is_action_just_pressed("jump") and ground_checker.is_grounded:
+	if Input.is_action_just_pressed("jump") and ground_checker.is_colliding:
 		jump()
 
 func jump():
