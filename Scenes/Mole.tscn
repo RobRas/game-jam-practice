@@ -7,6 +7,7 @@
 [ext_resource path="res://Audio/Jump.wav" type="AudioStream" id=5]
 [ext_resource path="res://Audio/Moving.wav" type="AudioStream" id=6]
 [ext_resource path="res://Audio/Landing.wav" type="AudioStream" id=7]
+[ext_resource path="res://Art_Assets/LightMaskMasked2.png" type="Texture" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Run"
@@ -27,12 +28,17 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 16, 30 )
 
-[node name="Mole" type="KinematicBody2D"]
+[node name="Mole" type="KinematicBody2D" groups=[
+"Moles",
+]]
+input_pickable = true
 collision_layer = 2
 collision_mask = 13
 script = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="SpriteScaling" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="SpriteScaling"]
 scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 vframes = 6
@@ -71,3 +77,12 @@ stream = ExtResource( 6 )
 
 [node name="LandAudio" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 7 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0.524475, -0.699303 )
+texture = ExtResource( 8 )
+mode = 3
+
+[node name="SelectionTween" type="Tween" parent="."]
+[connection signal="mouse_entered" from="." to="." method="_on_Mole_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Mole_mouse_exited"]
