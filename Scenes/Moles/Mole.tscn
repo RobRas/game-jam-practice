@@ -99,11 +99,9 @@ cast_to = Vector2( 0, 5 )
 position = Vector2( -29, 25 )
 enabled = true
 cast_to = Vector2( 0, 5 )
-
-[node name="SelectionTween" type="Tween" parent="."]
 [connection signal="controlled" from="Abilities/Controllable" to="Abilities/Jump" method="_on_control_enabled"]
-[connection signal="controlled" from="Abilities/Controllable" to="Abilities/Selectable" method="_on_control_enabled"]
 [connection signal="controlled" from="Abilities/Controllable" to="Abilities/HorizontalMovement" method="_on_control_enabled"]
+[connection signal="controlled" from="Abilities/Controllable" to="Abilities/Selectable" method="_on_control_enabled"]
 [connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/Jump" method="_on_control_disabled"]
-[connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/Selectable" method="_on_control_disabled"]
 [connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/HorizontalMovement" method="_on_control_disabled"]
+[connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/Selectable" method="_on_control_disabled"]
