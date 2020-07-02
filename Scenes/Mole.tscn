@@ -19,7 +19,9 @@ collision_layer = 2
 collision_mask = 13
 script = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="SpriteScaling" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="SpriteScaling"]
 scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 
@@ -53,5 +55,7 @@ stream = ExtResource( 6 )
 
 [node name="LandAudio" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 7 )
+
+[node name="SelectionTween" type="Tween" parent="."]
 [connection signal="mouse_entered" from="." to="." method="_on_Mole_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Mole_mouse_exited"]

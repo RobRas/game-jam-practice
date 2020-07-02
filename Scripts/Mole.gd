@@ -91,6 +91,14 @@ func enable(enabled):
 	self.enabled = enabled
 	if self.enabled:
 		emit_signal("enabled", self)
+		var tween = $SelectionTween
+		
+		var scale_size = 1.1
+		tween.interpolate_property($SpriteScaling, "scale", Vector2(1, 1), Vector2(scale_size, scale_size), 0.08, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		tween.start()
+		yield(tween, "tween_completed")
+		tween.interpolate_property($SpriteScaling, "scale", Vector2(scale_size, scale_size), Vector2(1, 1), 0.08, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		tween.start()
 	else:
 		emit_signal("disabled", self)
 
