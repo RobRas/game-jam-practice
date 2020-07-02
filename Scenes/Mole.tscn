@@ -9,45 +9,50 @@
 [ext_resource path="res://Audio/Landing.wav" type="AudioStream" id=7]
 [ext_resource path="res://Art_Assets/LightMaskMasked2.png" type="Texture" id=8]
 
-[sub_resource type="AtlasTexture" id=2]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=3]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 16, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=4]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=5]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 48, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=1]
 flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 64, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
 flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 80, 0, 16, 16 )
 
-[sub_resource type="SpriteFrames" id=8]
+[sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"frames": [ SubResource( 1 ) ],
 "loop": true,
-"name": "default",
+"name": "Jump",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "Run",
+"speed": 8.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 15.4695, 30.076 )
 
 [node name="Mole" type="KinematicBody2D" groups=[
@@ -62,11 +67,12 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="SpriteScaling"]
 scale = Vector2( 4, 4 )
-frames = SubResource( 8 )
+frames = SubResource( 7 )
+animation = "Jump"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -2.22453, 2.21464 )
-shape = SubResource( 1 )
+shape = SubResource( 8 )
 
 [node name="GroundChecker" type="Node2D" parent="."]
 script = ExtResource( 3 )
