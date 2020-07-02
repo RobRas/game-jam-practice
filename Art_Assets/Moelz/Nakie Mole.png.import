@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Mole Run Test.png-255fd3e954ab9b88fcb6dc5aa69bcb23.stex"
+path="res://.import/Nakie Mole.png-39462de2e33ba1c47953f8b79c255f40.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art_Assets/Mole_Avatar/Run_Animation/Mole Run Test.png"
-dest_files=[ "res://.import/Mole Run Test.png-255fd3e954ab9b88fcb6dc5aa69bcb23.stex" ]
+source_file="res://Art_Assets/Moelz/Nakie Mole.png"
+dest_files=[ "res://.import/Nakie Mole.png-39462de2e33ba1c47953f8b79c255f40.stex" ]
 
 [params]
 
