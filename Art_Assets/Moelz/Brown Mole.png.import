@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Mole Run Test5pxo.png-86a7ce336b9bfcb2a9fcf4c11cd88ea7.stex"
+path="res://.import/Brown Mole.png-144d3dcf0436951f6fa97423024cf181.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art_Assets/Mole_Avatar/Animation/Mole Run Test5pxo.png"
-dest_files=[ "res://.import/Mole Run Test5pxo.png-86a7ce336b9bfcb2a9fcf4c11cd88ea7.stex" ]
+source_file="res://Art_Assets/Moelz/Brown Mole.png"
+dest_files=[ "res://.import/Brown Mole.png-144d3dcf0436951f6fa97423024cf181.stex" ]
 
 [params]
 

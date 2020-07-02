@@ -48,6 +48,7 @@ func _physics_process(delta):
 
 func jump():
 	velocity.y = jump_speed
+	$SpriteScaling/Sprite.play("Jump")
 	$Audio/JumpAudio.play()
 
 func hazard_hit():
@@ -80,8 +81,10 @@ func _parse_horizontal_input():
 	saved_horizontal = horizontal
 	
 	if horizontal == 0 or not is_grounded:
+		$SpriteScaling/Sprite.stop()
 		$Audio/RunAudio.stop()
 	elif not $Audio/RunAudio.playing:
+		$SpriteScaling/Sprite.play("Run")
 		$Audio/RunAudio.play()
 
 func enable(enabled):
