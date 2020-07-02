@@ -3,7 +3,6 @@
 [ext_resource path="res://Audio/Jump.wav" type="AudioStream" id=1]
 [ext_resource path="res://Scripts/Abilities/Jump.gd" type="Script" id=2]
 
-
 [node name="Jump" type="Node"]
 script = ExtResource( 2 )
 ground_checker_path = NodePath("../../GroundChecker")

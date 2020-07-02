@@ -9,3 +9,4 @@ ground_checker_path = NodePath("../../GroundChecker")
 
 [node name="RunAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
+volume_db = 10.0
