@@ -7,7 +7,7 @@
 [ext_resource path="res://Audio/Jump.wav" type="AudioStream" id=5]
 [ext_resource path="res://Audio/Moving.wav" type="AudioStream" id=6]
 [ext_resource path="res://Audio/Landing.wav" type="AudioStream" id=7]
-[ext_resource path="res://Art_Assets/LightMaskMasked2.png" type="Texture" id=8]
+[ext_resource path="res://Art_Assets/LightMask.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 30 )
@@ -58,9 +58,9 @@ stream = ExtResource( 6 )
 stream = ExtResource( 7 )
 
 [node name="Light2D" type="Light2D" parent="."]
-position = Vector2( 0.524475, -0.699303 )
+position = Vector2( 0.524475, 0.699297 )
+scale = Vector2( 5, 5 )
 texture = ExtResource( 8 )
-mode = 3
 
 [node name="SelectionTween" type="Tween" parent="."]
 [connection signal="mouse_entered" from="." to="." method="_on_Mole_mouse_entered"]
