@@ -9,7 +9,23 @@
 [ext_resource path="res://Audio/Landing.wav" type="AudioStream" id=7]
 [ext_resource path="res://Art_Assets/LightMaskMasked2.png" type="Texture" id=8]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="Animation" id=1]
+resource_name = "Run"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 16, 30 )
 
 [node name="Mole" type="KinematicBody2D" groups=[
@@ -25,10 +41,15 @@ script = ExtResource( 2 )
 [node name="Sprite" type="Sprite" parent="SpriteScaling"]
 scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
+vframes = 6
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+anims/Run = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 4, 2 )
-shape = SubResource( 1 )
+position = Vector2( -2.22453, 2.21464 )
+shape = SubResource( 2 )
 
 [node name="GroundChecker" type="Node2D" parent="."]
 script = ExtResource( 3 )
