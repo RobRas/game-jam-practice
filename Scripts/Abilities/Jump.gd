@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 export(int) var initial_jump_force = 20000
 
@@ -47,6 +47,9 @@ func _physics_process(delta):
 			parent.velocity.y -= hold_addition * delta
 		if parent.velocity.y > 0: #falling
 			parent.velocity.y += descent_addition * delta
+		if $HeadCollisionChecker.is_colliding:
+			if parent.velocity.y < 0:
+				parent.velocity.y = 0
 
 func jump():
 	jumping = true
