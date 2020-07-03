@@ -83,6 +83,7 @@ func _on_control_disabled(_mole):
 	controlled = false
 	if running:
 		animated_sprite.stop()
+		$RunAudio.stop()
 
 func set_enabled(enabled):
 	_enabled = enabled
