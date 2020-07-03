@@ -3,14 +3,20 @@ extends Node
 var moles = []
 var current_mole_index = 0
 
+var camera_target
+
 
 func _ready():
+	camera_target = $CameraTarget
+	
 	moles = get_tree().get_nodes_in_group("Moles")
 	
 	for mole in moles:
 		mole.get_node("Abilities/Selectable").connect("selected", self, "_on_mole_selected")
 	
-	set_current_mole(moles[current_mole_index])
+	var starting_mole = moles[current_mole_index]
+	camera_target.position = starting_mole.position
+	set_current_mole(starting_mole)
 
 func _process(delta):
 	if Input.is_action_just_pressed("switch_mole"):
@@ -22,6 +28,8 @@ func set_current_mole(new_mole):
 	
 	current_mole_index = moles.find(new_mole)
 	new_mole.enable(true)
+
+	camera_target.follow_target = new_mole
 
 func _on_mole_selected(mole):
 	if mole == moles[current_mole_index]:

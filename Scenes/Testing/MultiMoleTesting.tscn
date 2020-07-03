@@ -17,6 +17,22 @@
 position = Vector2( 183.906, 133.889 )
 z_index = 1
 
+[node name="Ground4" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( -495.138, 50.7233 )
+z_index = 1
+
+[node name="Ground5" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( -627.174, 408.25 )
+z_index = 1
+
+[node name="Ground6" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( -235.352, 222.199 )
+z_index = 1
+
+[node name="Ground7" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( -132.467, 567.723 )
+z_index = 1
+
 [node name="Ground2" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 416, 233 )
 z_index = 1
@@ -25,17 +41,52 @@ z_index = 1
 position = Vector2( 724, 464 )
 z_index = 1
 
+[node name="ClimbableWall" parent="Terrain" instance=ExtResource( 1 )]
+modulate = Color( 0.145098, 0.839216, 0, 1 )
+position = Vector2( 952.389, 209.303 )
+rotation = 1.5708
+z_index = 1
+collision_layer = 17
+
+[node name="ClimbableWall2" parent="Terrain" instance=ExtResource( 1 )]
+modulate = Color( 0.145098, 0.839216, 0, 1 )
+position = Vector2( 75.9757, 343.535 )
+rotation = 1.5708
+z_index = 1
+collision_layer = 17
+
+[node name="ClimbableWall3" parent="Terrain" instance=ExtResource( 1 )]
+modulate = Color( 0.145098, 0.839216, 0, 1 )
+position = Vector2( -859.558, 139.568 )
+rotation = 1.5708
+z_index = 1
+collision_layer = 17
+
 [node name="Hazard" parent="Terrain" instance=ExtResource( 4 )]
 position = Vector2( 265, 570 )
 z_index = 1
 
+[node name="Hazard2" parent="Terrain" instance=ExtResource( 4 )]
+position = Vector2( -822.293, 812.177 )
+z_index = 1
+
+[node name="Hazard3" parent="Terrain" instance=ExtResource( 4 )]
+position = Vector2( -454.852, 815.518 )
+z_index = 1
+
+[node name="Hazard4" parent="Terrain" instance=ExtResource( 4 )]
+position = Vector2( -84.0696, 815.518 )
+z_index = 1
+
+[node name="Background" type="Sprite" parent="Terrain"]
+position = Vector2( 517.453, 297.874 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 5 )
+
 [node name="CanvasModulate" type="CanvasModulate" parent="Terrain"]
+position = Vector2( 283.385, 51.4426 )
 z_index = 1
 color = Color( 0.0627451, 0.0588235, 0.0588235, 1 )
-
-[node name="Sprite" type="Sprite" parent="Terrain"]
-position = Vector2( 513.166, 300.446 )
-texture = ExtResource( 5 )
 
 [node name="Moles" type="Node" parent="."]
 
@@ -47,7 +98,7 @@ position = Vector2( 103.337, 53.6862 )
 scale = Vector2( 1.01206, 0.992703 )
 
 [node name="MoleMole" parent="Moles" instance=ExtResource( 2 )]
-position = Vector2( 189.526, 55.0527 )
+position = Vector2( 189.526, 55.8265 )
 
 [node name="MoleController" parent="." instance=ExtResource( 3 )]
 

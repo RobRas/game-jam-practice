@@ -64,6 +64,7 @@ script = ExtResource( 2 )
 [node name="Gravity" parent="Abilities" instance=ExtResource( 6 )]
 
 [node name="Jump" parent="Abilities" instance=ExtResource( 7 )]
+position = Vector2( 0, -28 )
 animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
 
 [node name="HorizontalMovement" parent="Abilities" instance=ExtResource( 5 )]
@@ -78,6 +79,7 @@ animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
 [node name="Lightable" parent="Abilities" instance=ExtResource( 4 )]
 
 [node name="SpriteScaling" type="Node2D" parent="."]
+position = Vector2( 6, 2.5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="SpriteScaling"]
 scale = Vector2( 4, 4 )
@@ -85,23 +87,22 @@ frames = SubResource( 7 )
 animation = "Jump"
 
 [node name="EnvironmentCollision" type="CollisionShape2D" parent="."]
-position = Vector2( -6, -3 )
 shape = SubResource( 8 )
 
 [node name="GroundChecker" parent="." instance=ExtResource( 3 )]
 
 [node name="RightRay" type="RayCast2D" parent="GroundChecker"]
-position = Vector2( 17, 25 )
+position = Vector2( 20, 28 )
 enabled = true
 cast_to = Vector2( 0, 5 )
 
 [node name="LeftRay" type="RayCast2D" parent="GroundChecker"]
-position = Vector2( -29, 25 )
+position = Vector2( -20, 28 )
 enabled = true
 cast_to = Vector2( 0, 5 )
-[connection signal="controlled" from="Abilities/Controllable" to="Abilities/Jump" method="_on_control_enabled"]
 [connection signal="controlled" from="Abilities/Controllable" to="Abilities/Selectable" method="_on_control_enabled"]
 [connection signal="controlled" from="Abilities/Controllable" to="Abilities/HorizontalMovement" method="_on_control_enabled"]
-[connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/Jump" method="_on_control_disabled"]
+[connection signal="controlled" from="Abilities/Controllable" to="Abilities/Jump" method="_on_control_enabled"]
 [connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/Selectable" method="_on_control_disabled"]
 [connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/HorizontalMovement" method="_on_control_disabled"]
+[connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/Jump" method="_on_control_disabled"]
