@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/MoleTheme.ogg-fb4152b712829f8c488ecd82c834d3fc.oggstr"
+
+[deps]
+
+source_file="res://Audio/MoleTheme.ogg"
+dest_files=[ "res://.import/MoleTheme.ogg-fb4152b712829f8c488ecd82c834d3fc.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
