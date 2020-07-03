@@ -10,6 +10,7 @@ ground_checker_path = NodePath("../../GroundChecker")
 
 [node name="JumpAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
+volume_db = 8.0
 
 [node name="HeadCollisionChecker" parent="." instance=ExtResource( 3 )]
 
