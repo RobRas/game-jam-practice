@@ -1,5 +1,7 @@
 extends Node2D
 
+signal jumped
+
 export(int) var initial_jump_force = 20000
 
 export(int) var hold_addition = 20000
@@ -20,6 +22,7 @@ var play_animation = false
 var controlled = false
 
 var jumping = false
+var _enabled = true
 
 func _ready():
 	ground_checker = get_node(ground_checker_path)
@@ -55,6 +58,7 @@ func jump():
 	jumping = true
 	parent.velocity.y = -initial_jump_force
 	$JumpAudio.play()
+	emit_signal("jumped")
 
 func _on_left_ground():
 	#annoying work around for animation
@@ -72,3 +76,9 @@ func _on_control_enabled(_mole):
 
 func _on_control_disabled(_mole):
 	controlled = false
+
+func set_enabled(enabled):
+	_enabled = enabled
+	if not _enabled:
+		parent.velocity.y = min(0, parent.velocity.y)
+		jumping = false

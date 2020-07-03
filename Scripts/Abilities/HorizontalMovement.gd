@@ -15,6 +15,7 @@ var facing_right = true
 var running = false
 
 var controlled = false
+var _enabled = true
 
 func _ready():
 	ground_checker = get_node(ground_checker_path)
@@ -27,6 +28,9 @@ func init(parent):
 	self.parent = parent
 
 func _process(delta):
+	if not _enabled:
+		return
+	
 	if not controlled:
 		if ground_checker.is_colliding:
 			parent.velocity.x = 0
@@ -78,4 +82,11 @@ func _on_control_enabled(_mole):
 func _on_control_disabled(_mole):
 	controlled = false
 	if running:
+		animated_sprite.stop()
+
+func set_enabled(enabled):
+	_enabled = enabled
+	if not _enabled:
+		parent.velocity.x = 0
+		$RunAudio.stop()
 		animated_sprite.stop()
