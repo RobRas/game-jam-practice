@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Art_Assets/LightMask.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Light2D.gd" type="Script" id=3]
+
+[node name="MoleLight" type="Node2D"]
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 73.6792, 118.885 )
+scale = Vector2( 3.44418, 2.86223 )
+texture = ExtResource( 1 )
+color = Color( 0.909804, 0.890196, 0.419608, 1 )
+energy = 1.93
+shadow_enabled = true
+script = ExtResource( 3 )

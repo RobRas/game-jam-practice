@@ -1,0 +1,112 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Art_Assets/Moelz/Normie Mole.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Mole.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/GroundChecker.gd" type="Script" id=3]
+[ext_resource path="res://Audio/Death.wav" type="AudioStream" id=4]
+[ext_resource path="res://Scenes/Abilities/HorizontalMovement.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Abilities/Gravity.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Abilities/Jump.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Art_Assets/LightMaskMasked2.png" type="Texture" id=8]
+[ext_resource path="res://Scenes/Abilities/Selectable.tscn" type="PackedScene" id=9]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 80, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "Jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "Run",
+"speed": 8.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 15.4695, 30.076 )
+
+[node name="Mole" type="KinematicBody2D" groups=[
+"Moles",
+]]
+input_pickable = true
+collision_layer = 2
+collision_mask = 13
+script = ExtResource( 2 )
+
+[node name="Abilities" type="Node2D" parent="."]
+
+[node name="Gravity" parent="Abilities" instance=ExtResource( 6 )]
+
+[node name="Jump" parent="Abilities" instance=ExtResource( 7 )]
+animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
+
+[node name="HorizontalMovement" parent="Abilities" instance=ExtResource( 5 )]
+animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
+
+[node name="Selectable" parent="Abilities" instance=ExtResource( 9 )]
+
+[node name="SpriteScaling" type="Node2D" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="SpriteScaling"]
+scale = Vector2( 4, 4 )
+frames = SubResource( 7 )
+animation = "Jump"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -2.22453, 2.21464 )
+shape = SubResource( 8 )
+
+[node name="GroundChecker" type="Node2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="GroundCheckerLeft" type="RayCast2D" parent="GroundChecker"]
+position = Vector2( -14, 24 )
+enabled = true
+cast_to = Vector2( 0, 10 )
+
+[node name="GroundCheckerRight" type="RayCast2D" parent="GroundChecker"]
+position = Vector2( 12, 24 )
+enabled = true
+cast_to = Vector2( 0, 10 )
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="DeathAudio" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 4 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0.706711, -1.06557 )
+texture = ExtResource( 8 )
+
+[node name="SelectionTween" type="Tween" parent="."]
