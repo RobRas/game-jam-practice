@@ -13,39 +13,39 @@
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
-region = Rect2( 16, 0, 16, 16 )
+region = Rect2( 64, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 16, 16 )
+region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 48, 0, 16, 16 )
+region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 16, 16 )
+region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
-region = Rect2( 80, 0, 16, 16 )
+region = Rect2( 64, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 16, 16 )
+region = Rect2( 80, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
-"loop": true,
-"name": "Run",
-"speed": 8.0
-}, {
-"frames": [ SubResource( 6 ) ],
+"frames": [ SubResource( 1 ) ],
 "loop": true,
 "name": "Jump",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "Run",
+"speed": 8.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=8]
@@ -64,7 +64,7 @@ script = ExtResource( 2 )
 [node name="Gravity" parent="Abilities" instance=ExtResource( 6 )]
 
 [node name="Jump" parent="Abilities" instance=ExtResource( 7 )]
-position = Vector2( -6, -32 )
+position = Vector2( 0, -28 )
 animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
 
 [node name="HorizontalMovement" parent="Abilities" instance=ExtResource( 5 )]
@@ -79,6 +79,7 @@ animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
 [node name="Lightable" parent="Abilities" instance=ExtResource( 4 )]
 
 [node name="SpriteScaling" type="Node2D" parent="."]
+position = Vector2( 6, 2.5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="SpriteScaling"]
 scale = Vector2( 4, 4 )
@@ -86,23 +87,22 @@ frames = SubResource( 7 )
 animation = "Jump"
 
 [node name="EnvironmentCollision" type="CollisionShape2D" parent="."]
-position = Vector2( -6, -3 )
 shape = SubResource( 8 )
 
 [node name="GroundChecker" parent="." instance=ExtResource( 3 )]
 
 [node name="RightRay" type="RayCast2D" parent="GroundChecker"]
-position = Vector2( 17, 25 )
+position = Vector2( 20, 28 )
 enabled = true
 cast_to = Vector2( 0, 5 )
 
 [node name="LeftRay" type="RayCast2D" parent="GroundChecker"]
-position = Vector2( -29, 25 )
+position = Vector2( -20, 28 )
 enabled = true
 cast_to = Vector2( 0, 5 )
-[connection signal="controlled" from="Abilities/Controllable" to="Abilities/HorizontalMovement" method="_on_control_enabled"]
-[connection signal="controlled" from="Abilities/Controllable" to="Abilities/Selectable" method="_on_control_enabled"]
 [connection signal="controlled" from="Abilities/Controllable" to="Abilities/Jump" method="_on_control_enabled"]
-[connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/HorizontalMovement" method="_on_control_disabled"]
-[connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/Selectable" method="_on_control_disabled"]
+[connection signal="controlled" from="Abilities/Controllable" to="Abilities/Selectable" method="_on_control_enabled"]
+[connection signal="controlled" from="Abilities/Controllable" to="Abilities/HorizontalMovement" method="_on_control_enabled"]
 [connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/Jump" method="_on_control_disabled"]
+[connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/Selectable" method="_on_control_disabled"]
+[connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/HorizontalMovement" method="_on_control_disabled"]

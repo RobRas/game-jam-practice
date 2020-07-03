@@ -12,3 +12,7 @@ script = ExtResource( 1 )
 enabled = true
 cast_to = Vector2( 8, 0 )
 collision_mask = 16
+
+[node name="GrabCooldown" type="Timer" parent="."]
+one_shot = true
+[connection signal="timeout" from="GrabCooldown" to="." method="_on_GrabCooldown_timeout"]

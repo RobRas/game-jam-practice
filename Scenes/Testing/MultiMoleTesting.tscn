@@ -31,6 +31,12 @@ rotation = 1.5708
 z_index = 1
 collision_layer = 17
 
+[node name="ClimbableWall2" parent="Terrain" instance=ExtResource( 1 )]
+position = Vector2( 80.9862, 340.195 )
+rotation = 1.5708
+z_index = 1
+collision_layer = 17
+
 [node name="Hazard" parent="Terrain" instance=ExtResource( 4 )]
 position = Vector2( 265, 570 )
 z_index = 1

@@ -44,7 +44,8 @@ animations = [ {
 [node name="NakedMole" instance=ExtResource( 1 )]
 
 [node name="Climbable" parent="Abilities" index="7" instance=ExtResource( 3 )]
-position = Vector2( 15, -2 )
+position = Vector2( 20, -2 )
+jump_path = NodePath("../Jump")
 enable_setter_paths = [ NodePath("../Gravity"), NodePath("../Jump"), NodePath("../HorizontalMovement") ]
 
 [node name="AnimatedSprite" parent="SpriteScaling" index="0"]
