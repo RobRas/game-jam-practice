@@ -37,7 +37,10 @@ func _process(_delta):
 	if not _enabled:
 		return
 	
-	var input_direction = controller.get_horizontal_movement_input()
+	if not ground_checker.is_colliding:
+		return
+	
+	var input_direction = controller.get_horizontal_movement()
 	var new_horizontal_velocity = _calculate_velocity(input_direction)
 	set_effects(input_direction)
 	parent.velocity.x = new_horizontal_velocity

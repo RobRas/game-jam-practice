@@ -1,10 +1,9 @@
 extends Node
 
-func get_horizontal_movement_input():
-	return 0
+var _attempting_climb
 
-func get_jump_input_immediate():
-	return false
+func enter(character_controller):
+	_attempting_climb = Input.is_action_pressed("grab")
 
-func get_jump_input_continuous():
-	return false
+func get_climb_input_continuous():
+	return _attempting_climb

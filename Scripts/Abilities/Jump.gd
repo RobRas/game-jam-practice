@@ -18,7 +18,6 @@ export(NodePath) var ground_checker_path
 export(NodePath) var animated_sprite_path
 
 var controller
-
 var parent
 var ground_checker
 var animated_sprite
@@ -41,15 +40,14 @@ func _ready():
 func init(parent, controller):
 	self.parent = parent
 	self.controller = controller
+	
+	self.controller.connect("jump_immediate", self, "_on_jump_immediate")
 
-func _process(delta):
-	if controller.get_jump_input_immediate() and ground_checker.is_colliding:
-		jump()
 
 func _physics_process(delta):
 	if jumping:
 		# need to multiply by delta for acceleration
-		if controller.get_jump_input_continuous():
+		if parent.velocity.y < 0 and controller.get_jump():
 			parent.velocity.y -= hold_addition * delta
 		if parent.velocity.y > 0: #falling
 			parent.velocity.y += descent_addition * delta
@@ -82,3 +80,7 @@ func set_enabled(enabled):
 		emit_signal("disabled")
 	else:
 		emit_signal("enabled")
+
+func _on_jump_immediate(pressed):
+	if pressed and ground_checker.is_colliding:
+		jump()

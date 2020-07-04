@@ -1,6 +1,10 @@
 extends Node
 
 
+signal horizontal_immediate(pressed, value)
+signal jump_immediate(pressed)
+signal grab_immediate(pressed)
+
 const _UNSELECTED_CONTROLLER_SCENE = preload("res://Scenes/Controllers/UnselectedController.tscn")
 const _PLAYER_CONTROLLER_SCENE = preload("res://Scenes/Controllers/PlayerController.tscn")
 
@@ -20,14 +24,24 @@ func _ready():
 
 func set_controller(type):
 	remove_child(_controller)
+	if _controller.has_method("exit"):
+		_controller.exit(self)
 	_controller = _controllers[type]
 	add_child(_controller)
+	if _controller.has_method("enter"):
+		_controller.enter(self)
 
-func get_horizontal_movement_input():
-	return _controller.get_horizontal_movement_input()
+func get_horizontal_movement():
+	if _controller.has_method("get_horizontal_movement_input_continuous"):
+		return _controller.get_horizontal_movement_input_continuous()
+	return 0.0
 
-func get_jump_input_immediate():
-	return _controller.get_jump_input_immediate()
+func get_jump():
+	if _controller.has_method("get_jump_input_continuous"):
+		return _controller.get_jump_input_continuous()
+	return false
 
-func get_jump_input_continuous():
-	return _controller.get_jump_input_continuous()
+func get_grab():
+	if _controller.has_method("get_grab_input_immediate"):
+		return _controller.get_grab_input_immediate()
+	return false

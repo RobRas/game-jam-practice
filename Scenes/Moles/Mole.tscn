@@ -4,7 +4,7 @@
 [ext_resource path="res://Scripts/Mole.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/CollisionChecker.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Abilities/Abilities.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Abilities/Lightable.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Abilities/Light.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Abilities/GroundHorizontalMovement.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Controllers/CharacterController.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Abilities/Selectable.tscn" type="PackedScene" id=8]
@@ -87,7 +87,7 @@ animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
 death_audio_stream = ExtResource( 15 )
 volume_db = 12.0
 
-[node name="Lightable" parent="Abilities" instance=ExtResource( 5 )]
+[node name="Light" parent="Abilities" instance=ExtResource( 5 )]
 position = Vector2( 18, -20 )
 light_texture = ExtResource( 16 )
 
