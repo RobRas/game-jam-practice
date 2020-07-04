@@ -61,7 +61,7 @@ collision_layer = 17
 
 [node name="ClimbableWall3" parent="Terrain" instance=ExtResource( 1 )]
 modulate = Color( 0.145098, 0.839216, 0, 1 )
-position = Vector2( -859.558, 139.568 )
+position = Vector2( 3.24524, -81.9426 )
 rotation = 1.5708
 z_index = 1
 collision_layer = 17

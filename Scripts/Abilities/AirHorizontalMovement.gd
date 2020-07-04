@@ -34,11 +34,14 @@ func init(parent, controller):
 	_controller = controller
 
 func set_enabled(enabled):
-	_enabled = enabled
-	if _enabled:
-		emit_signal("enabled")
-	else:
-		emit_signal("disabled")
+	if enabled:
+		if not _ground_checker.is_colliding:
+			_enabled = true
+			emit_signal("enabled")
+			return
+	
+	_enabled = false
+	emit_signal("disabled")
 
 func _on_ground_started_colliding():
 	set_enabled(false)

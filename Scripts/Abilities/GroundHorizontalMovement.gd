@@ -85,22 +85,28 @@ func _calculate_stop_momentum():
 	return current_velocity_direction * clamped_velocity
 
 func calculate_movement_momentum(input_direction):
+	if parent.velocity.x > move_speed:	# If going faster, slow instead of immediate clamp
+		return _calculate_stop_momentum()
+	
 	var acceleration = input_direction * move_start_growth
 	var calculated_velocity = parent.velocity.x + acceleration
 	return clamp(calculated_velocity, -move_speed, move_speed)
 
 func set_enabled(enabled):
-	_enabled = enabled
-	if not _enabled:
-		running = false
-		$RunAudio.stop()
-		animated_sprite.stop()
-		emit_signal("disabled")
-	else:
-		if controller.get_horizontal_movement() != 0:
-			$RunAudio.play()
-			animated_sprite.play("Run")
-		emit_signal("enabled")
+	if enabled:
+		if ground_checker.is_colliding:
+			_enabled = true
+			if controller.get_horizontal_movement() != 0:
+				$RunAudio.play()
+				animated_sprite.play("Run")
+			emit_signal("enabled")
+			return
+	
+	_enabled = false
+	running = false
+	$RunAudio.stop()
+	animated_sprite.stop()
+	emit_signal("disabled")
 
 func _on_started_colliding():
 	set_enabled(true)

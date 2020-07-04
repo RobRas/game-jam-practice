@@ -1,6 +1,7 @@
 extends Node2D
 
 export(float) var grab_cooldown = 0.4
+export(int) var walljump_initial_force = 1000
 
 export(NodePath) var jump_path
 var jump
@@ -61,3 +62,4 @@ func _on_jump_immediate(pressed):
 	if climbing:
 		_stop_climb()
 		jump.jump()
+		parent.velocity.x = controller.get_horizontal_movement() * walljump_initial_force
