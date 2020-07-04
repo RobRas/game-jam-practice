@@ -2,16 +2,22 @@ extends Node2D
 
 signal jumped
 
+signal enabled
+signal disabled
+
 export(int) var initial_jump_force = 20000
 
 export(int) var hold_addition = 20000
 
 export(int) var descent_addition = 30000
 
+export(AudioStream) var jump_audio_stream
+export(float) var volume_db = 8
+
 export(NodePath) var ground_checker_path
 export(NodePath) var animated_sprite_path
 
-export(AudioStream) var jump_audio_stream
+var controller
 
 var parent
 var ground_checker
@@ -19,34 +25,31 @@ var animated_sprite
 
 var play_animation = false
 
-var controlled = false
-
 var jumping = false
 var _enabled = true
 
 func _ready():
+	$JumpAudio.stream = jump_audio_stream
+	$JumpAudio.volume_db = volume_db
+	
 	ground_checker = get_node(ground_checker_path)
 	ground_checker.connect("stopped_colliding", self, "_on_left_ground")
 	ground_checker.connect("started_colliding", self, "_on_landed")
-	animated_sprite = get_node(animated_sprite_path)
 	
-	if jump_audio_stream:
-		$JumpAudio.stream = jump_audio_stream
+	animated_sprite = get_node(animated_sprite_path)
 
-func init(parent):
+func init(parent, controller):
 	self.parent = parent
+	self.controller = controller
 
 func _process(delta):
-	if not controlled:
-		return
-	
-	if Input.is_action_just_pressed("jump") and ground_checker.is_colliding:
+	if controller.get_jump_input_immediate() and ground_checker.is_colliding:
 		jump()
 
 func _physics_process(delta):
 	if jumping:
 		# need to multiply by delta for acceleration
-		if Input.is_action_pressed("jump"):
+		if controller.get_jump_input_continuous():
 			parent.velocity.y -= hold_addition * delta
 		if parent.velocity.y > 0: #falling
 			parent.velocity.y += descent_addition * delta
@@ -71,14 +74,11 @@ func _on_landed():
 	jumping = false
 	animated_sprite.stop()
 
-func _on_control_enabled(_mole):
-	controlled = true
-
-func _on_control_disabled(_mole):
-	controlled = false
-
 func set_enabled(enabled):
 	_enabled = enabled
 	if not _enabled:
 		parent.velocity.y = min(0, parent.velocity.y)
 		jumping = false
+		emit_signal("disabled")
+	else:
+		emit_signal("enabled")

@@ -19,7 +19,7 @@ func _ready():
 	for setter_path in enable_setter_paths:
 		enable_setters.append(get_node(setter_path))
 
-func init(parent):
+func init(parent, controller):
 	self.parent = parent
 
 func _process(delta):

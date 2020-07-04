@@ -1,51 +1,57 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Art_Assets/Moelz/Normie Mole.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Mole.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/CollisionChecker.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Abilities/Lightable.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Abilities/HorizontalMovement.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/Abilities/Gravity.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/Abilities/Jump.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/Abilities/Controllable.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/Abilities/Selectable.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Abilities/Abilities.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Abilities/Lightable.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Abilities/GroundHorizontalMovement.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Controllers/CharacterController.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Abilities/Selectable.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Abilities/Gravity.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Abilities/Killable.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Abilities/Jump.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Audio/Landing.wav" type="AudioStream" id=12]
+[ext_resource path="res://Audio/Moving.wav" type="AudioStream" id=13]
+[ext_resource path="res://Audio/Jump.wav" type="AudioStream" id=14]
+[ext_resource path="res://Audio/Death.wav" type="AudioStream" id=15]
+[ext_resource path="res://Art_Assets/LightMaskMasked2.png" type="Texture" id=16]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 16, 16 )
+region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 16, 0, 16, 16 )
+region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 16, 16 )
+region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
-region = Rect2( 48, 0, 16, 16 )
+region = Rect2( 64, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 16, 16 )
+region = Rect2( 80, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 80, 0, 16, 16 )
+region = Rect2( 64, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 1 ) ],
-"loop": true,
-"name": "Jump",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
 "name": "Run",
 "speed": 8.0
+}, {
+"frames": [ SubResource( 6 ) ],
+"loop": true,
+"name": "Jump",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=8]
@@ -59,25 +65,33 @@ collision_layer = 2
 collision_mask = 13
 script = ExtResource( 2 )
 
-[node name="Abilities" type="Node2D" parent="."]
+[node name="CharacterController" parent="." instance=ExtResource( 7 )]
 
-[node name="Gravity" parent="Abilities" instance=ExtResource( 6 )]
+[node name="Abilities" parent="." instance=ExtResource( 4 )]
+parent_path = NodePath("..")
+character_controller_path = NodePath("../CharacterController")
 
-[node name="Jump" parent="Abilities" instance=ExtResource( 7 )]
+[node name="Gravity" parent="Abilities" instance=ExtResource( 9 )]
+land_audio_stream = ExtResource( 12 )
+
+[node name="GroundHorizontalMovement" parent="Abilities" instance=ExtResource( 6 )]
+animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
+run_audio_stream = ExtResource( 13 )
+
+[node name="Jump" parent="Abilities" instance=ExtResource( 11 )]
 position = Vector2( 0, -28 )
+jump_audio_stream = ExtResource( 14 )
 animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
-
-[node name="HorizontalMovement" parent="Abilities" instance=ExtResource( 5 )]
-animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
-
-[node name="Selectable" parent="Abilities" instance=ExtResource( 9 )]
-
-[node name="Controllable" parent="Abilities" instance=ExtResource( 8 )]
 
 [node name="Killable" parent="Abilities" instance=ExtResource( 10 )]
+death_audio_stream = ExtResource( 15 )
+volume_db = 12.0
 
-[node name="Lightable" parent="Abilities" instance=ExtResource( 4 )]
-position = Vector2( 24, -20 )
+[node name="Lightable" parent="Abilities" instance=ExtResource( 5 )]
+position = Vector2( 18, -20 )
+light_texture = ExtResource( 16 )
+
+[node name="Selectable" parent="Abilities" instance=ExtResource( 8 )]
 
 [node name="SpriteScaling" type="Node2D" parent="."]
 position = Vector2( 6, 2.5 )
@@ -101,9 +115,3 @@ cast_to = Vector2( 0, 5 )
 position = Vector2( -20, 28 )
 enabled = true
 cast_to = Vector2( 0, 5 )
-[connection signal="controlled" from="Abilities/Controllable" to="Abilities/HorizontalMovement" method="_on_control_enabled"]
-[connection signal="controlled" from="Abilities/Controllable" to="Abilities/Selectable" method="_on_control_enabled"]
-[connection signal="controlled" from="Abilities/Controllable" to="Abilities/Jump" method="_on_control_enabled"]
-[connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/HorizontalMovement" method="_on_control_disabled"]
-[connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/Selectable" method="_on_control_disabled"]
-[connection signal="uncontrolled" from="Abilities/Controllable" to="Abilities/Jump" method="_on_control_disabled"]

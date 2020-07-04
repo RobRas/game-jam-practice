@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Audio/Landing.wav" type="AudioStream" id=1]
 [ext_resource path="res://Scripts/Abilities/Gravity.gd" type="Script" id=2]
 
 [node name="Gravity" type="Node"]
@@ -8,5 +7,3 @@ script = ExtResource( 2 )
 ground_checker_path = NodePath("../../GroundChecker")
 
 [node name="LandAudio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 1 )
-volume_db = 10.0
