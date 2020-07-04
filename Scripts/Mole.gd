@@ -10,14 +10,12 @@ var velocity = Vector2()
 
 var enabled = false
 
-func _ready():
-	for ability in $Abilities.get_children():
-		ability.init(self)
-
 
 func _physics_process(delta):
 	move_and_slide(velocity * delta)
 
+func set_controller(type):
+	$CharacterController.set_controller(type)
 
 func hazard_hit(hazard):
 	emit_signal("hazard_hit", hazard)

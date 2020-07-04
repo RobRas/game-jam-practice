@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovement.gd" type="Script" id=2]
+
+[node name="GroundHorizontalMovement" type="Node"]
+script = ExtResource( 2 )
+ground_checker_path = NodePath("../../GroundChecker")
+
+[node name="RunAudio" type="AudioStreamPlayer" parent="."]

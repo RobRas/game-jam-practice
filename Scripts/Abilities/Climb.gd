@@ -8,10 +8,11 @@ var jump
 export(Array, NodePath) var enable_setter_paths
 var enable_setters = []
 
-var can_climb = true
+var climb_on_cooldown = false
 var climbing = false
 
 var parent
+var controller
 
 func _ready():
 	$GrabCooldown.wait_time = grab_cooldown
@@ -19,23 +20,12 @@ func _ready():
 	for setter_path in enable_setter_paths:
 		enable_setters.append(get_node(setter_path))
 
-func init(parent):
+func init(parent, controller):
 	self.parent = parent
+	self.controller = controller
+	controller.connect("grab_immediate", self, "_on_grab_immediate")
+	controller.connect("jump_immediate", self, "_on_jump_immediate")
 
-func _process(delta):
-	if climbing:
-		if Input.is_action_just_pressed("jump"):
-			_stop_climb()
-			jump.jump()
-
-func _physics_process(delta):
-	if not climbing:
-		if can_climb and Input.is_action_just_pressed("grab"):
-			if $CollisionChecker.is_colliding:
-				_start_climb()
-	else:
-		if Input.is_action_just_pressed("grab"):
-			_stop_climb()
 
 func _start_climb():
 	climbing = true
@@ -44,7 +34,7 @@ func _start_climb():
 func _stop_climb():
 	climbing = false
 	_set_enables(true)
-	can_climb = false
+	climb_on_cooldown = true
 	$GrabCooldown.start()
 
 func _set_enables(enabled):
@@ -53,4 +43,21 @@ func _set_enables(enabled):
 
 
 func _on_GrabCooldown_timeout():
-	can_climb = true
+	climb_on_cooldown = false
+
+func _on_grab_immediate(pressed):
+	if not pressed:
+		return
+		
+	if climbing:
+		_stop_climb()
+	elif not climb_on_cooldown and $CollisionChecker.is_colliding:
+		_start_climb()
+
+func _on_jump_immediate(pressed):
+	if not pressed:
+		return
+	
+	if climbing:
+		_stop_climb()
+		jump.jump()
