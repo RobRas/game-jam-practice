@@ -92,14 +92,14 @@ color = Color( 0.0627451, 0.0588235, 0.0588235, 1 )
 [node name="Moles" type="Node" parent="."]
 
 [node name="Naked" parent="Moles" instance=ExtResource( 6 )]
-position = Vector2( 283.385, 51.4426 )
+position = Vector2( 242.893, 69.928 )
 
 [node name="BrownMole" parent="Moles" instance=ExtResource( 8 )]
-position = Vector2( 103.337, 53.6862 )
+position = Vector2( 100.256, 69.971 )
 scale = Vector2( 1.01206, 0.992703 )
 
 [node name="MoleMole" parent="Moles" instance=ExtResource( 2 )]
-position = Vector2( 189.526, 55.8265 )
+position = Vector2( 180.723, 70.7909 )
 
 [node name="MoleController" parent="." instance=ExtResource( 3 )]
 

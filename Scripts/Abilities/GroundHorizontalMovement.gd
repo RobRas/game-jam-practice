@@ -26,6 +26,9 @@ func _ready():
 	$RunAudio.volume_db = volume_db
 	
 	ground_checker = get_node(ground_checker_path)
+	ground_checker.connect("started_colliding", self, "_on_started_colliding")
+	ground_checker.connect("stopped_colliding", self, "_on_stopped_colliding")
+	
 	animated_sprite = get_node(animated_sprite_path)
 	
 
@@ -41,12 +44,13 @@ func _process(_delta):
 		return
 	
 	var input_direction = controller.get_horizontal_movement()
-	var new_horizontal_velocity = _calculate_velocity(input_direction)
+	var new_horizontal_velocity = calculate_velocity(input_direction)
 	set_effects(input_direction)
 	parent.velocity.x = new_horizontal_velocity
-	
 
-func _calculate_velocity(input_direction):
+
+
+func calculate_velocity(input_direction):
 	if input_direction < 0 and facing_right:
 		facing_right = false
 		parent.scale.x = -parent.scale.x
@@ -58,7 +62,7 @@ func _calculate_velocity(input_direction):
 	if input_direction == 0:
 		new_velocity = _calculate_stop_momentum()
 	else:
-		new_velocity = _calculate_movement_momentum(input_direction)
+		new_velocity = calculate_movement_momentum(input_direction)
 	
 	return new_velocity
 	
@@ -80,7 +84,7 @@ func _calculate_stop_momentum():
 	var clamped_velocity = max(abs(calculated_velocity), 0)
 	return current_velocity_direction * clamped_velocity
 
-func _calculate_movement_momentum(input_direction):
+func calculate_movement_momentum(input_direction):
 	var acceleration = input_direction * move_start_growth
 	var calculated_velocity = parent.velocity.x + acceleration
 	return clamp(calculated_velocity, -move_speed, move_speed)
@@ -88,9 +92,14 @@ func _calculate_movement_momentum(input_direction):
 func set_enabled(enabled):
 	_enabled = enabled
 	if not _enabled:
-		parent.velocity.x = 0
 		$RunAudio.stop()
 		animated_sprite.stop()
 		emit_signal("disabled")
 	else:
 		emit_signal("enabled")
+
+func _on_started_colliding():
+	set_enabled(true)
+
+func _on_stopped_colliding():
+	set_enabled(false)

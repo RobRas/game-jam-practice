@@ -1,8 +1,8 @@
 extends Node
 
-var _horizontal_movement_input
-var _jump_input
-var _grab_input
+var _horizontal_movement_input = 0.0
+var _jump_input = false
+var _grab_input = false
 
 var _character_controller
 
