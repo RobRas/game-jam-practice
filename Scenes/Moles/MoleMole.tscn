@@ -13,6 +13,6 @@ ground_checker_path = NodePath("../../../MoleMole/GroundChecker")
 animated_sprite_path = NodePath("../../../MoleMole/SpriteScaling/AnimatedSprite")
 
 [node name="Light" parent="Abilities" index="5"]
+position = Vector2( 260, 0 )
+rotation = 3.14159
 light_texture = ExtResource( 2 )
-light_offset = Vector2( 255, 0 )
-light_rotation = 180.0

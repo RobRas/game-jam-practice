@@ -11,6 +11,9 @@
 [ext_resource path="res://Audio/MoleTheme.ogg" type="AudioStream" id=9]
 
 [node name="MultiMoleTesting" type="Node"]
+__meta__ = {
+"_edit_horizontal_guides_": [ -275.248 ]
+}
 
 [node name="Terrain" type="Node" parent="."]
 
@@ -99,7 +102,7 @@ position = Vector2( 100.256, 69.971 )
 scale = Vector2( 1.01206, 0.992703 )
 
 [node name="MoleMole" parent="Moles" instance=ExtResource( 2 )]
-position = Vector2( 180.723, 70.7909 )
+position = Vector2( 561.522, 169.583 )
 
 [node name="MoleController" parent="." instance=ExtResource( 3 )]
 

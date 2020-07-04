@@ -3,26 +3,16 @@ extends Node2D
 
 export(Texture) var light_texture
 
-export(Vector2) var light_offset
-export(float) var light_rotation
-
 var LightTween 
 var LightTween2
 var direction ="down"
 
 
 func _ready():
-	$Light2D.position = light_offset
 	if light_texture:
 		$Light2D.texture = light_texture
 		LightTween = $Light2D/LightTweenDown
 		_light_glow(direction)
-
-func _process(delta):
-	if Engine.editor_hint:
-		$Light2D.texture = light_texture
-		$Light2D.rotation = light_rotation
-		$Light2D.position = light_offset
 		
 	
 func _light_glow(direction):

@@ -6,6 +6,5 @@
 script = ExtResource( 2 )
 
 [node name="Light2D" type="Light2D" parent="."]
-position = Vector2( 0.706711, -1.06557 )
 
 [node name="LightTweenDown" type="Tween" parent="Light2D"]
