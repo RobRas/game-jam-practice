@@ -1,6 +1,6 @@
 extends Node
 
-const _CHARACTER_CONTROLLER = preload("res://Scripts/Controllers/CharacterController.gd")
+var ControllerType = preload("res://Scripts/Controllers/CharacterController.gd").ControllerType
 
 var moles = []
 var current_mole_index = 0
@@ -26,10 +26,10 @@ func _process(delta):
 
 func set_current_mole(new_mole):
 	var previous_mole = moles[current_mole_index]
-	previous_mole.set_controller(_CHARACTER_CONTROLLER.ControllerType.UNSELECTED)
+	previous_mole.set_controller(ControllerType.UNSELECTED)
 	
 	current_mole_index = moles.find(new_mole)
-	new_mole.set_controller(_CHARACTER_CONTROLLER.ControllerType.PLAYER)
+	new_mole.set_controller(ControllerType.PLAYER)
 
 	camera_target.follow_target = new_mole
 
