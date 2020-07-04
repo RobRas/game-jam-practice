@@ -90,7 +90,7 @@ texture = ExtResource( 5 )
 [node name="CanvasModulate" type="CanvasModulate" parent="Terrain"]
 position = Vector2( 283.385, 51.4426 )
 z_index = 1
-color = Color( 0.0627451, 0.0588235, 0.0588235, 1 )
+color = Color( 0.278431, 0.262745, 0.262745, 1 )
 
 [node name="Moles" type="Node" parent="."]
 
