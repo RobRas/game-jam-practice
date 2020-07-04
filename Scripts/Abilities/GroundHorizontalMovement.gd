@@ -22,7 +22,7 @@ var running = false
 
 var _enabled = true
 
-enum States { IDLE, RUNNING, STOPPING, TURNING }
+enum States { NONE, IDLE, RUNNING, STOPPING, TURNING }
 var current_state = States.IDLE
 
 func _ready():
