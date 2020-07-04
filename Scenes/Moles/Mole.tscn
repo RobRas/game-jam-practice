@@ -77,7 +77,8 @@ animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
 [node name="Killable" parent="Abilities" instance=ExtResource( 10 )]
 
 [node name="Lightable" parent="Abilities" instance=ExtResource( 4 )]
-position = Vector2( 24, -20 )
+position = Vector2( 50, -20 )
+scale = Vector2( -1, 1 )
 
 [node name="SpriteScaling" type="Node2D" parent="."]
 position = Vector2( 6, 2.5 )

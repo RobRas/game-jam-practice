@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/Moles/Mole.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art_Assets/Moelz/Brown Mole.png" type="Texture" id=2]
+[ext_resource path="res://Art_Assets/LightMaskLong.png" type="Texture" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -52,6 +53,10 @@ animated_sprite_path = NodePath("../../../BrownMole/SpriteScaling/AnimatedSprite
 [node name="HorizontalMovement" parent="Abilities" index="2"]
 ground_checker_path = NodePath("../../../BrownMole/GroundChecker")
 animated_sprite_path = NodePath("../../../BrownMole/SpriteScaling/AnimatedSprite")
+
+[node name="Lightable" parent="Abilities" index="6"]
+position = Vector2( 235, 0 )
+light_texture = ExtResource( 3 )
 
 [node name="AnimatedSprite" parent="SpriteScaling" index="0"]
 frames = SubResource( 7 )
