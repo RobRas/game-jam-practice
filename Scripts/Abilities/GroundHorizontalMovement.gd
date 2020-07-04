@@ -92,10 +92,14 @@ func calculate_movement_momentum(input_direction):
 func set_enabled(enabled):
 	_enabled = enabled
 	if not _enabled:
+		running = false
 		$RunAudio.stop()
 		animated_sprite.stop()
 		emit_signal("disabled")
 	else:
+		if controller.get_horizontal_movement() != 0:
+			$RunAudio.play()
+			animated_sprite.play("Run")
 		emit_signal("enabled")
 
 func _on_started_colliding():

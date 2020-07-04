@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/Moles/Mole.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Art_Assets/LightMaskLong.png" type="Texture" id=2]
 
 [node name="MoleMole" instance=ExtResource( 1 )]
 
@@ -10,3 +11,8 @@ ground_checker_path = NodePath("../../../MoleMole/GroundChecker")
 [node name="Jump" parent="Abilities" index="3"]
 ground_checker_path = NodePath("../../../MoleMole/GroundChecker")
 animated_sprite_path = NodePath("../../../MoleMole/SpriteScaling/AnimatedSprite")
+
+[node name="Light" parent="Abilities" index="5"]
+light_texture = ExtResource( 2 )
+light_offset = Vector2( 255, 0 )
+light_rotation = 180.0
