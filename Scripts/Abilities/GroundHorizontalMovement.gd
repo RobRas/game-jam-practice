@@ -22,6 +22,9 @@ var running = false
 
 var _enabled = true
 
+enum States { IDLE, RUNNING, STOPPING, TURNING }
+var current_state = States.IDLE
+
 func _ready():
 	$RunAudio.volume_db = volume_db
 	
@@ -45,8 +48,8 @@ func _process(_delta):
 	
 	var input_direction = controller.get_horizontal_movement()
 	var new_horizontal_velocity = calculate_velocity(input_direction)
-	set_effects(input_direction)
 	parent.velocity.x = new_horizontal_velocity
+	set_effects(input_direction)
 
 
 
