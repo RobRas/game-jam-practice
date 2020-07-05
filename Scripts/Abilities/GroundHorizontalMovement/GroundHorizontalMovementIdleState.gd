@@ -1,4 +1,4 @@
-extends "res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalMovementState.gd"
+extends "res://Scripts/Abilities/StateMachine/State.gd"
 
 func _set_state(input):
 	if input != 0:

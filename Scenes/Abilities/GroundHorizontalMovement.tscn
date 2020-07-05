@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalMovementIdleState.gd" type="Script" id=1]
-[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovement.gd" type="Script" id=2]
-[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalMovementRunningState.gd" type="Script" id=3]
-[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalMovementStartingState.gd" type="Script" id=4]
-[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalMovementStoppingState.gd" type="Script" id=5]
-[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalMovementTurningState.gd" type="Script" id=6]
-[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalMovementSlowingState.gd" type="Script" id=7]
-[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalStateManager.gd" type="Script" id=8]
-[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/RunAudio.gd" type="Script" id=9]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovement/GroundHorizontalMovementIdleState.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovement/GroundHorizontalMovement.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovement/GroundHorizontalMovementRunningState.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovement/GroundHorizontalMovementStartingState.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovement/GroundHorizontalMovementStoppingState.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovement/GroundHorizontalMovementTurningState.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovement/GroundHorizontalMovementSlowingState.gd" type="Script" id=7]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovement/GroundHorizontalMovementStateManager.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovement/RunAudio.gd" type="Script" id=9]
 
 [node name="GroundHorizontalMovement" type="Node"]
 process_priority = -1

@@ -20,6 +20,7 @@ func set_character_controller(type):
 func hazard_hit(hazard):
 	emit_signal("hazard_hit", hazard)
 
+
 func enable(enabled):
 	if enabled:
 		emit_signal("enabled", self)

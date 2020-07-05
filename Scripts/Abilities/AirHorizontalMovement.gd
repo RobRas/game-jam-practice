@@ -3,46 +3,45 @@ extends Node
 signal enabled
 signal disabled
 
-export(NodePath) var ground_horizontal_movement_path
-var _ground_horizontal_movement
+export(int) var move_speed = 12000
+export(int) var acceleration = 500
 
 export(NodePath) var ground_checker_path
 var _ground_checker
 
-var _parent
-var _controller
+export(NodePath) var sprite_controller_path
+var _sprite_controller
 
-var _enabled
+var _parent
 
 func _ready():
 	_ground_checker = get_node(ground_checker_path)
 	_ground_checker.connect("started_colliding", self, "_on_ground_started_colliding")
 	_ground_checker.connect("stopped_colliding", self, "_on_ground_stopped_colliding")
 	
-	_ground_horizontal_movement = get_node(ground_horizontal_movement_path)
-
-func _physics_process(delta):
-	if not _enabled:
-		return
-	
-	var input_direction = _controller.get_horizontal_movement()
-	if input_direction != 0:
-		pass
-		#_parent.velocity.x = _ground_horizontal_movement.calculate_velocity(input_direction)
+	_sprite_controller = get_node(sprite_controller_path)
 
 func init(parent, controller):
 	_parent = parent
-	_controller = controller
+	$States.init(self, controller)
+
+func get_velocity():
+	return _parent.velocity.x
+
+func set_velocity(value):
+	_parent.velocity.x = value
+
+
+func get_sprite_controller():
+	return _sprite_controller
 
 func enable():
 	if not _ground_checker.is_colliding:
-		_enabled = true
 		emit_signal("enabled")
 	else:
 		disable()
 
 func disable():
-	_enabled = false
 	emit_signal("disabled")
 
 func _on_ground_started_colliding():

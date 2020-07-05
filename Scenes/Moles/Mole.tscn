@@ -76,14 +76,15 @@ character_controller_path = NodePath("../CharacterController")
 land_audio_stream = ExtResource( 12 )
 
 [node name="GroundHorizontalMovement" parent="Abilities" instance=ExtResource( 6 )]
-start_acceleration = 35000
-stop_acceleration = 50000
+start_acceleration = 45000
+stop_acceleration = 60000
 ground_checker_path = NodePath("../../GroundChecker")
 sprite_controller_path = NodePath("../../SpriteController")
 
 [node name="AirHorizontalMovement" parent="Abilities" instance=ExtResource( 17 )]
-ground_horizontal_movement_path = NodePath("../GroundHorizontalMovement")
+acceleration = 40000
 ground_checker_path = NodePath("../../GroundChecker")
+sprite_controller_path = NodePath("../../SpriteController")
 
 [node name="Jump" parent="Abilities" instance=ExtResource( 11 )]
 position = Vector2( 0, -28 )

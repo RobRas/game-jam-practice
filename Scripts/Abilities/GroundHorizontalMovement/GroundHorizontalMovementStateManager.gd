@@ -1,4 +1,6 @@
-extends Node
+extends "res://Scripts/Abilities/StateMachine/StateManager.gd"
+
+export(bool) var __debug = false
 
 enum States {
 	NONE,		# Enter state
@@ -10,27 +12,9 @@ enum States {
 	SLOWING		# Moving faster than max speed.
 }
 
-onready var state_nodes = {
-	States.IDLE:     $Idle,
-	States.STARTING: $Starting,
-	States.RUNNING:  $Running,
-	States.STOPPING: $Stopping,
-	States.TURNING:  $Turning,
-	States.SLOWING:  $Slowing
-}
-
-var _current_state
 
 var _movement
 var _controller
-
-func _ready():
-	for state in state_nodes.keys():
-		var state_node = get_state_node(state)
-		
-		state_node.init(state, self)
-		state_node.connect("entering", self, "_on_state_entered")
-		state_node.connect("exiting", self, "_on_state_exited")
 
 func init(movement, controller):
 	_movement = movement
@@ -38,29 +22,23 @@ func init(movement, controller):
 	
 	_movement.connect("enabled", self, "_on_enabled")
 	_movement.connect("disabled", self, "_on_disabled")
-	
-	var input = _controller.get_horizontal_movement()
-	_current_state = _find_initial_state(input)
-	var state = get_state_node(_current_state)
-	state.enter(States.NONE, input)
-
-func _process(delta):
-	get_state_node(_current_state).update(_controller.get_horizontal_movement(), delta)
 
 
-func set_state(new_state):
-	var input = _controller.get_horizontal_movement()
-	
-	var previous_state = _current_state
-	var previous_state_node = get_state_node(previous_state)
-	previous_state_node.exit(new_state, input)
-	
-	_current_state = new_state
-	var new_state_node = get_state_node(_current_state)
-	new_state_node.enter(previous_state, input)
+func _get_input():
+	return _controller.get_horizontal_movement()
 
-func get_state_node(state):
-	return state_nodes[state]
+func _get_enter_state():
+	return States.NONE
+
+func _initialize_states():
+	state_nodes = {
+		States.IDLE:     $Idle,
+		States.STARTING: $Starting,
+		States.RUNNING:  $Running,
+		States.STOPPING: $Stopping,
+		States.TURNING:  $Turning,
+		States.SLOWING:  $Slowing
+	}
 
 
 func get_sprite_controller():
@@ -108,30 +86,23 @@ func _find_initial_state(input):
 			return States.TURNING
 
 
-func _on_enabled():
-	var input = _controller.get_horizontal_movement()
-	_current_state = _find_initial_state(input)
-	get_state_node(_current_state).enter(States.NONE, input)
-	set_process(true)
-
-func _on_disabled():
-	if _current_state != States.NONE:
-		var input = _controller.get_horizontal_movement()
-		get_state_node(_current_state).exit(States.NONE, input)
-		get_state_node(_current_state).disable()
-		_current_state = States.NONE
-		set_process(false)
-
-
 func _on_state_entered(caller, from, input):
+	if not __debug:
+		return
+	
 	print("------------------------------")
+	print("GroundHorizontalMovement")
 	print("ENTER:")
 	print("From: " + str(States.keys()[from]))
 	print("To: " + str(States.keys()[caller]))
 	print("------------------------------")
 
 func _on_state_exited(caller, to, input):
+	if not __debug:
+		return
+	
 	print("------------------------------")
+	print("GroundHorizontalMovement")
 	print("EXIT:")
 	print("From: " + str(States.keys()[caller]))
 	print("To: " + str(States.keys()[to]))

@@ -15,11 +15,8 @@ export(float) var volume_db = 20
 
 var _sprite_controller
 
-var _controller
 var _parent
 var _ground_checker
-
-var _enabled = true
 
 
 func _ready():
@@ -34,7 +31,6 @@ func _ready():
 
 func init(parent, controller):
 	_parent = parent
-	_controller = controller
 	$States.init(self, controller)
 
 
@@ -54,12 +50,13 @@ func get_run_audio():
 
 func enable():
 	print("ENABLE")
-	_enabled = true
-	emit_signal("enabled")
+	if _ground_checker.is_colliding:
+		emit_signal("enabled")
+	else:
+		disable()
 
 func disable():
 	print("DISABLE")
-	_enabled = false
 	emit_signal("disabled")
 
 
