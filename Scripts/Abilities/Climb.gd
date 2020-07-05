@@ -39,8 +39,12 @@ func _stop_climb():
 	$GrabCooldown.start()
 
 func _set_enables(enabled):
-	for enable_setter in enable_setters:
-		enable_setter.set_enabled(enabled)
+	if enabled:
+		for enable_setter in enable_setters:
+			enable_setter.enable()
+	else:
+		for enable_setter in enable_setters:
+			enable_setter.disable()
 
 
 func _on_GrabCooldown_timeout():

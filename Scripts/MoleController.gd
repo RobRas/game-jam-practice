@@ -26,10 +26,10 @@ func _process(delta):
 
 func set_current_mole(new_mole):
 	var previous_mole = moles[current_mole_index]
-	previous_mole.set_controller(_CHARACTER_CONTROLLER.ControllerType.UNSELECTED)
+	previous_mole.set_character_controller(_CHARACTER_CONTROLLER.ControllerType.UNSELECTED)
 	
 	current_mole_index = moles.find(new_mole)
-	new_mole.set_controller(_CHARACTER_CONTROLLER.ControllerType.PLAYER)
+	new_mole.set_character_controller(_CHARACTER_CONTROLLER.ControllerType.PLAYER)
 
 	camera_target.follow_target = new_mole
 

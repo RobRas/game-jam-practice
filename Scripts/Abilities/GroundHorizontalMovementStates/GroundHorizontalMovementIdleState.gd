@@ -1,16 +1,10 @@
-extends Node
+extends "res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalMovementState.gd"
 
-signal entering(from)
-signal exiting(to)
-
-var States = preload("res://Scripts/Abilities/GroundHorizontalMovement.gd").States
-
-func enter(from):
-	pass
-
-func exit(to):
-	pass
-
-func update(parent, input, delta):
+func _set_state(input):
 	if input != 0:
-		exit(States.IDLE)
+		transition(_manager.States.STARTING)
+
+func _on_enter(from, input):
+	_manager.get_sprite_controller().stop()
+	_manager.get_run_audio().stop()
+

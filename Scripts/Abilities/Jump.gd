@@ -25,7 +25,8 @@ var animated_sprite
 var play_animation = false
 
 var jumping = false
-var _enabled = true
+
+var enabled = true
 
 func _ready():
 	$JumpAudio.stream = jump_audio_stream
@@ -45,6 +46,9 @@ func init(parent, controller):
 
 
 func _physics_process(delta):
+	if not enabled:
+		return
+	
 	if jumping:
 		# need to multiply by delta for acceleration
 		if parent.velocity.y < 0 and controller.get_jump():
@@ -70,16 +74,16 @@ func _on_left_ground():
 
 func _on_landed():
 	jumping = false
-	animated_sprite.stop()
 
-func set_enabled(enabled):
-	_enabled = enabled
-	if not _enabled:
-		parent.velocity.y = min(0, parent.velocity.y)
-		jumping = false
-		emit_signal("disabled")
-	else:
-		emit_signal("enabled")
+func enable():
+	enabled = true
+	parent.velocity.y = min(0, parent.velocity.y)
+	jumping = false
+	emit_signal("disabled")
+
+func disable():
+	enabled = false
+	emit_signal("enabled")
 
 func _on_jump_immediate(pressed):
 	if pressed and ground_checker.is_colliding:

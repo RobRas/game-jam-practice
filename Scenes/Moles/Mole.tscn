@@ -12,46 +12,46 @@
 [ext_resource path="res://Scenes/Abilities/Killable.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Abilities/Jump.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Audio/Landing.wav" type="AudioStream" id=12]
-[ext_resource path="res://Audio/Moving.wav" type="AudioStream" id=13]
+[ext_resource path="res://Scripts/SpriteController.gd" type="Script" id=13]
 [ext_resource path="res://Audio/Jump.wav" type="AudioStream" id=14]
 [ext_resource path="res://Audio/Death.wav" type="AudioStream" id=15]
 [ext_resource path="res://Scenes/Abilities/AirHorizontalMovement.tscn" type="PackedScene" id=17]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
-region = Rect2( 16, 0, 16, 16 )
+region = Rect2( 64, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 16, 16 )
+region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 48, 0, 16, 16 )
+region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 16, 16 )
+region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
-region = Rect2( 80, 0, 16, 16 )
+region = Rect2( 64, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 16, 16 )
+region = Rect2( 80, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
-"loop": true,
-"name": "Run",
-"speed": 8.0
-}, {
-"frames": [ SubResource( 6 ) ],
+"frames": [ SubResource( 1 ) ],
 "loop": true,
 "name": "Jump",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "Run",
+"speed": 8.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=8]
@@ -66,6 +66,7 @@ collision_mask = 13
 script = ExtResource( 2 )
 
 [node name="CharacterController" parent="." instance=ExtResource( 7 )]
+process_priority = 1
 
 [node name="Abilities" parent="." instance=ExtResource( 4 )]
 parent_path = NodePath("..")
@@ -75,8 +76,10 @@ character_controller_path = NodePath("../CharacterController")
 land_audio_stream = ExtResource( 12 )
 
 [node name="GroundHorizontalMovement" parent="Abilities" instance=ExtResource( 6 )]
-animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
-run_audio_stream = ExtResource( 13 )
+start_acceleration = 35000
+stop_acceleration = 50000
+ground_checker_path = NodePath("../../GroundChecker")
+sprite_controller_path = NodePath("../../SpriteController")
 
 [node name="AirHorizontalMovement" parent="Abilities" instance=ExtResource( 17 )]
 ground_horizontal_movement_path = NodePath("../GroundHorizontalMovement")
@@ -85,7 +88,7 @@ ground_checker_path = NodePath("../../GroundChecker")
 [node name="Jump" parent="Abilities" instance=ExtResource( 11 )]
 position = Vector2( 0, -28 )
 jump_audio_stream = ExtResource( 14 )
-animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
+animated_sprite_path = NodePath("../../SpriteController/AnimatedSprite")
 
 [node name="Killable" parent="Abilities" instance=ExtResource( 10 )]
 death_audio_stream = ExtResource( 15 )
@@ -95,10 +98,12 @@ volume_db = 12.0
 
 [node name="Selectable" parent="Abilities" instance=ExtResource( 8 )]
 
-[node name="SpriteScaling" type="Node2D" parent="."]
+[node name="SpriteController" type="Node2D" parent="."]
 position = Vector2( 6, 2.5 )
+script = ExtResource( 13 )
+mole_path = NodePath("..")
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="SpriteScaling"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="SpriteController"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 7 )
 animation = "Jump"

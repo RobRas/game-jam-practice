@@ -27,24 +27,26 @@ func _physics_process(delta):
 	
 	var input_direction = _controller.get_horizontal_movement()
 	if input_direction != 0:
-		_parent.velocity.x = _ground_horizontal_movement.calculate_velocity(input_direction)
+		pass
+		#_parent.velocity.x = _ground_horizontal_movement.calculate_velocity(input_direction)
 
 func init(parent, controller):
 	_parent = parent
 	_controller = controller
 
-func set_enabled(enabled):
-	if enabled:
-		if not _ground_checker.is_colliding:
-			_enabled = true
-			emit_signal("enabled")
-			return
-	
+func enable():
+	if not _ground_checker.is_colliding:
+		_enabled = true
+		emit_signal("enabled")
+	else:
+		disable()
+
+func disable():
 	_enabled = false
 	emit_signal("disabled")
 
 func _on_ground_started_colliding():
-	set_enabled(false)
+	disable()
 
 func _on_ground_stopped_colliding():
-	set_enabled(true)
+	enable()

@@ -1,21 +1,39 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalMovementIdleState.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Abilities/GroundHorizontalMovement.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalMovementRunningState.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalMovementStartingState.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalMovementStoppingState.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalMovementTurningState.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalMovementSlowingState.gd" type="Script" id=7]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/GroundHorizontalStateManager.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/Abilities/GroundHorizontalMovementStates/RunAudio.gd" type="Script" id=9]
 
 [node name="GroundHorizontalMovement" type="Node"]
+process_priority = -1
 script = ExtResource( 2 )
-ground_checker_path = NodePath("../../GroundChecker")
 
 [node name="States" type="Node" parent="."]
+script = ExtResource( 8 )
 
 [node name="Idle" type="Node" parent="States"]
 script = ExtResource( 1 )
 
+[node name="Starting" type="Node" parent="States"]
+script = ExtResource( 4 )
+
 [node name="Running" type="Node" parent="States"]
+script = ExtResource( 3 )
 
 [node name="Stopping" type="Node" parent="States"]
+script = ExtResource( 5 )
 
 [node name="Turning" type="Node" parent="States"]
+script = ExtResource( 6 )
+
+[node name="Slowing" type="Node" parent="States"]
+script = ExtResource( 7 )
 
 [node name="RunAudio" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 9 )

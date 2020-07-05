@@ -1,8 +1,7 @@
 extends Node2D
 
-
-signal stopped_colliding
 signal started_colliding
+signal stopped_colliding
 
 var rays
 var is_colliding = false

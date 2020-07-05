@@ -4,115 +4,67 @@ signal enabled
 signal disabled
 
 export(int) var move_speed = 12000
-export(int) var move_start_growth = 500
-export(int) var move_stop_growth = 500
+export(int) var start_acceleration = 500
+export(int) var stop_acceleration = 500
+
 export(NodePath) var ground_checker_path
-export(NodePath) var animated_sprite_path
+export(NodePath) var sprite_controller_path
+
 export(AudioStream) var run_audio_stream
 export(float) var volume_db = 20
 
-var controller
+var _sprite_controller
 
-var parent
-var ground_checker
-var animated_sprite
-
-var facing_right = true
-var running = false
+var _controller
+var _parent
+var _ground_checker
 
 var _enabled = true
 
-enum States { NONE, IDLE, RUNNING, STOPPING, TURNING }
-var current_state = States.IDLE
 
 func _ready():
-	$RunAudio.volume_db = volume_db
+	_sprite_controller = get_node(sprite_controller_path)
+	_ground_checker = get_node(ground_checker_path)
 	
-	ground_checker = get_node(ground_checker_path)
-	ground_checker.connect("started_colliding", self, "_on_started_colliding")
-	ground_checker.connect("stopped_colliding", self, "_on_stopped_colliding")
+	_ground_checker.connect("started_colliding", self, "_on_ground_collision_started")
+	_ground_checker.connect("stopped_colliding", self, "_on_ground_collision_stopped")
 	
-	animated_sprite = get_node(animated_sprite_path)
-	
+	get_run_audio().set_stream(run_audio_stream)
+	get_run_audio().set_db(volume_db)
 
 func init(parent, controller):
-	self.parent = parent
-	self.controller = controller
-
-func _process(_delta):
-	if not _enabled:
-		return
-	
-	if not ground_checker.is_colliding:
-		return
-	
-	var input_direction = controller.get_horizontal_movement()
-	var new_horizontal_velocity = calculate_velocity(input_direction)
-	parent.velocity.x = new_horizontal_velocity
-	set_effects(input_direction)
+	_parent = parent
+	_controller = controller
+	$States.init(self, controller)
 
 
+func get_velocity():
+	return _parent.velocity.x
 
-func calculate_velocity(input_direction):
-	if input_direction < 0 and facing_right:
-		facing_right = false
-		parent.scale.x = -parent.scale.x
-	elif input_direction > 0 and not facing_right:
-		facing_right = true
-		parent.scale.x = -parent.scale.x
-		
-	var new_velocity
-	if input_direction == 0:
-		new_velocity = _calculate_stop_momentum()
-	else:
-		new_velocity = calculate_movement_momentum(input_direction)
-	
-	return new_velocity
-	
-func set_effects(input_direction):
-	if ground_checker.is_colliding and input_direction != 0:
-		if not running:
-			$RunAudio.play()
-			animated_sprite.play("Run")
-			running = true
-	else:
-		$RunAudio.stop()
-		animated_sprite.stop()
-		running = false
+func set_velocity(value):
+	_parent.velocity.x = value
 
-func _calculate_stop_momentum():
-	var current_velocity_direction = sign(parent.velocity.x)
-	var deceleration = -current_velocity_direction * move_stop_growth
-	var calculated_velocity = parent.velocity.x + deceleration
-	var clamped_velocity = max(abs(calculated_velocity), 0)
-	return current_velocity_direction * clamped_velocity
 
-func calculate_movement_momentum(input_direction):
-	if parent.velocity.x > move_speed:	# If going faster, slow instead of immediate clamp
-		return _calculate_stop_momentum()
-	
-	var acceleration = input_direction * move_start_growth
-	var calculated_velocity = parent.velocity.x + acceleration
-	return clamp(calculated_velocity, -move_speed, move_speed)
+func get_sprite_controller():
+	return _sprite_controller
 
-func set_enabled(enabled):
-	if enabled:
-		if ground_checker.is_colliding:
-			_enabled = true
-			if controller.get_horizontal_movement() != 0:
-				$RunAudio.play()
-				animated_sprite.play("Run")
-			emit_signal("enabled")
-			return
-	
+func get_run_audio():
+	return $RunAudio
+
+
+func enable():
+	print("ENABLE")
+	_enabled = true
+	emit_signal("enabled")
+
+func disable():
+	print("DISABLE")
 	_enabled = false
-	running = false
-	$RunAudio.stop()
-	animated_sprite.stop()
 	emit_signal("disabled")
 
-func _on_started_colliding():
-	set_enabled(true)
 
-func _on_stopped_colliding():
-	set_enabled(false)
+func _on_ground_collision_started():
+	enable()
+
+func _on_ground_collision_stopped():
+	disable()
