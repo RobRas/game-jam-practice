@@ -26,10 +26,10 @@ func remove_ability(ability_node):
 
 func _on_parent_enabled(parent):
 	for ability in get_children():
-		if ability.has_method("parent_enabled"):
-			ability.parent_enabled(parent)
+		if ability.has_method("enable"):
+			ability.enable()
 
 func _on_parent_disabled(parent):
 	for ability in get_children():
-		if ability.has_method("parent_disabled"):
-			ability.parent_disabled(parent)
+		if ability.has_method("disable"):
+			ability.disable()

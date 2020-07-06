@@ -18,6 +18,8 @@ var _sprite_controller
 var _parent
 var _ground_checker
 
+var _enabled
+
 
 func _ready():
 	_sprite_controller = get_node(sprite_controller_path)
@@ -49,15 +51,16 @@ func get_run_audio():
 
 
 func enable():
-	print("ENABLE")
-	if _ground_checker.is_colliding:
+	if _ground_checker.is_colliding and not _enabled:
+		_enabled = true
 		emit_signal("enabled")
 	else:
 		disable()
 
 func disable():
-	print("DISABLE")
-	emit_signal("disabled")
+	if _enabled:
+		_enabled = false
+		emit_signal("disabled")
 
 
 func _on_ground_collision_started():

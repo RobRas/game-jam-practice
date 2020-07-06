@@ -15,6 +15,7 @@ func _ready():
 		state_node.connect("exiting", self, "_on_state_exited")
 
 func start_machine():
+	set_process(true)
 	var input = _get_input()
 	_current_state = _find_initial_state(input)
 	var state = get_current()
@@ -55,12 +56,14 @@ func _get_enter_state():
 func _initialize_states():
 	pass
 
+
 func _on_enabled():
+	print("manager_enabled: " + get_parent().name)
 	start_machine()
-	set_process(true)
 
 func _on_disabled():
 	if _current_state != _get_enter_state():
+		print("manager_disabled: " + get_parent().name)
 		var input = _get_input()
 		get_current().exit(_get_enter_state(), input)
 		get_current().disable()

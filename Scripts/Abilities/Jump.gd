@@ -1,90 +1,65 @@
 extends Node2D
 
-signal jumped
-
 signal enabled
 signal disabled
 
 export(int) var initial_jump_force = 20000
-
 export(int) var hold_addition = 20000
-
 export(int) var descent_addition = 30000
 
 export(AudioStream) var jump_audio_stream
 export(float) var volume_db = 8
 
 export(NodePath) var ground_checker_path
-export(NodePath) var animated_sprite_path
+export(NodePath) var sprite_controller_path
 
-var controller
-var parent
-var ground_checker
-var animated_sprite
+var _parent
 
-var play_animation = false
+var _ground_checker
+var _sprite_controller
 
-var jumping = false
-
-var enabled = true
+var _enabled
 
 func _ready():
-	$JumpAudio.stream = jump_audio_stream
-	$JumpAudio.volume_db = volume_db
+	_ground_checker = get_node(ground_checker_path)
+	_sprite_controller = get_node(sprite_controller_path)
 	
-	ground_checker = get_node(ground_checker_path)
-	ground_checker.connect("stopped_colliding", self, "_on_left_ground")
-	ground_checker.connect("started_colliding", self, "_on_landed")
+	_ground_checker.connect("started_colliding", self, "_on_ground_checker_collided")
 	
-	animated_sprite = get_node(animated_sprite_path)
+	get_jump_audio().stream = jump_audio_stream
+	get_jump_audio().volume_db = volume_db
 
 func init(parent, controller):
-	self.parent = parent
-	self.controller = controller
-	
-	self.controller.connect("jump_immediate", self, "_on_jump_immediate")
+	_parent = parent
+	$States.init(self, controller)
 
 
-func _physics_process(delta):
-	if not enabled:
-		return
-	
-	if jumping:
-		# need to multiply by delta for acceleration
-		if parent.velocity.y < 0 and controller.get_jump():
-			parent.velocity.y -= hold_addition * delta
-		if parent.velocity.y > 0: #falling
-			parent.velocity.y += descent_addition * delta
-		if $HeadCollisionChecker.is_colliding:
-			if parent.velocity.y < 0:
-				parent.velocity.y = 0
+func get_velocity():
+	return _parent.velocity.y
 
-func jump():
-	jumping = true
-	parent.velocity.y = -initial_jump_force
-	$JumpAudio.play()
-	emit_signal("jumped")
+func set_velocity(new_velocity):
+	_parent.velocity.y = new_velocity
 
-func _on_left_ground():
-	#annoying work around for animation
-	if not jumping:
-		return
-	
-	animated_sprite.play("Jump")
+func get_sprite_controller():
+	return _sprite_controller
 
-func _on_landed():
-	jumping = false
+func get_jump_audio():
+	return $JumpAudio
+
+func get_ground_checker():
+	return _ground_checker
 
 func enable():
-	enabled = true
-	parent.velocity.y = min(0, parent.velocity.y)
-	jumping = false
-	emit_signal("disabled")
+	if not _enabled:
+		print("jump enabled")
+		_enabled = true
+		emit_signal("enabled")
 
 func disable():
-	enabled = false
-	emit_signal("enabled")
+	if _enabled:
+		print("jump disabled")
+		_enabled = false
+		emit_signal("disabled")
 
-func _on_jump_immediate(pressed):
-	if pressed and ground_checker.is_colliding:
-		jump()
+func _on_ground_checker_collided():
+	enable()
