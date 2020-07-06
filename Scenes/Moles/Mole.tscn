@@ -1,6 +1,6 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://Art_Assets/Moelz/Normie Mole.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Moles/BASE MOLE.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/Mole.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/CollisionChecker.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Abilities/Abilities.tscn" type="PackedScene" id=4]
@@ -38,8 +38,9 @@ atlas = ExtResource( 1 )
 region = Rect2( 80, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 16, 16 )
+flags = 4
+atlas = ExtResource( 16 )
+region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
@@ -84,6 +85,7 @@ ground_checker_path = NodePath("../../GroundChecker")
 
 [node name="Jump" parent="Abilities" instance=ExtResource( 11 )]
 position = Vector2( 0, -28 )
+initial_jump_force = 25000
 jump_audio_stream = ExtResource( 14 )
 animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
 
@@ -92,6 +94,7 @@ death_audio_stream = ExtResource( 15 )
 volume_db = 12.0
 
 [node name="Light" parent="Abilities" instance=ExtResource( 5 )]
+light_texture = null
 
 [node name="Selectable" parent="Abilities" instance=ExtResource( 8 )]
 
@@ -100,11 +103,11 @@ position = Vector2( 6, 2.5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="SpriteScaling"]
 scale = Vector2( 4, 4 )
-frames = SubResource( 7 )
-animation = "Jump"
+frames = ExtResource( 1 )
+animation = "Idle"
 
 [node name="EnvironmentCollision" type="CollisionShape2D" parent="."]
-shape = SubResource( 8 )
+shape = SubResource( 1 )
 
 [node name="GroundChecker" parent="." instance=ExtResource( 3 )]
 
