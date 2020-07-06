@@ -40,8 +40,3 @@ func get_jump():
 	if _controller.has_method("get_jump_input_continuous"):
 		return _controller.get_jump_input_continuous()
 	return false
-
-func get_grab():
-	if _controller.has_method("get_grab_input_immediate"):
-		return _controller.get_grab_input_immediate()
-	return false
