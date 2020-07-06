@@ -11,6 +11,9 @@ var velocity = Vector2()
 var enabled = false
 
 
+func _ready():
+	$Abilities.init()
+
 func _physics_process(delta):
 	move_and_slide(velocity * delta)
 

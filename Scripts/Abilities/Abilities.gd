@@ -12,10 +12,14 @@ func _ready():
 	parent.connect("disabled", self, "_on_parent_disabled")
 	
 	character_controller = get_node(character_controller_path)
-	
+
+func init():
 	for ability in get_children():
 		if ability.has_method("init"):
 			ability.init(parent, character_controller)
+	for ability in get_children():
+		ability.enable()
+
 
 func add_ability(ability_node):
 	add_child(ability_node)

@@ -25,15 +25,16 @@ func _ready():
 	_sprite_controller = get_node(sprite_controller_path)
 	_ground_checker = get_node(ground_checker_path)
 	
-	_ground_checker.connect("started_colliding", self, "_on_ground_collision_started")
-	_ground_checker.connect("stopped_colliding", self, "_on_ground_collision_stopped")
-	
 	get_run_audio().set_stream(run_audio_stream)
 	get_run_audio().set_db(volume_db)
 
 func init(parent, controller):
 	_parent = parent
 	$States.init(self, controller)
+
+
+func get_ground_checker():
+	return _ground_checker
 
 
 func get_velocity():
@@ -51,20 +52,11 @@ func get_run_audio():
 
 
 func enable():
-	if _ground_checker.is_colliding and not _enabled:
+	if not _enabled:
 		_enabled = true
 		emit_signal("enabled")
-	else:
-		disable()
 
 func disable():
 	if _enabled:
 		_enabled = false
 		emit_signal("disabled")
-
-
-func _on_ground_collision_started():
-	enable()
-
-func _on_ground_collision_stopped():
-	disable()

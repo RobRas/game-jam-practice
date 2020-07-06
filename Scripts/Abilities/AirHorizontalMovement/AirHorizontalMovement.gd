@@ -18,9 +18,6 @@ var _enabled
 
 func _ready():
 	_ground_checker = get_node(ground_checker_path)
-	_ground_checker.connect("started_colliding", self, "_on_ground_started_colliding")
-	_ground_checker.connect("stopped_colliding", self, "_on_ground_stopped_colliding")
-	
 	_sprite_controller = get_node(sprite_controller_path)
 
 func init(parent, controller):
@@ -37,20 +34,16 @@ func set_velocity(value):
 func get_sprite_controller():
 	return _sprite_controller
 
+func get_ground_checker():
+	return _ground_checker
+
+
 func enable():
-	if not _ground_checker.is_colliding and not _enabled:
+	if not _enabled:
 		_enabled = true
 		emit_signal("enabled")
-	else:
-		disable()
 
 func disable():
 	if _enabled:
 		_enabled = false
 		emit_signal("disabled")
-
-func _on_ground_started_colliding():
-	disable()
-
-func _on_ground_stopped_colliding():
-	enable()

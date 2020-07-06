@@ -14,5 +14,4 @@ func _on_character_controller_jump_immediate(pressed):
 		transition(_manager.States.JUMPING)
 
 func _on_ground_stopped_colliding():
-	print("dropping")
-	_manager.disable()
+	transition(_manager.States.DROPPING)

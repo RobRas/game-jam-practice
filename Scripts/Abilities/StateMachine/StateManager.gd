@@ -1,5 +1,7 @@
 extends Node
 
+export(bool) var __debug = false
+
 var state_nodes = { }
 var _current_state
 
@@ -21,7 +23,6 @@ func init(parent, controller):
 	_current_state = _get_enter_state()
 	for state in state_nodes.keys():
 		var state_node = get_state_node(state)
-		
 		state_node.init(state, self)
 		state_node.connect("entering", self, "_on_state_entered")
 		state_node.connect("exiting", self, "_on_state_exited")
@@ -33,9 +34,9 @@ func _further_init():
 
 func start_machine():
 	set_process(true)
-	var input = _get_input()
-	_current_state = _find_initial_state(input)
+	_current_state = _find_initial_state()
 	var state = get_current()
+	var input = _get_input()
 	state.enter(_get_enter_state(), input)
 
 func _process(delta):
@@ -66,7 +67,7 @@ func get_current():
 func _get_input():
 	pass
 
-func _find_initial_state(input):
+func _find_initial_state():
 	pass
 
 func _get_enter_state():
@@ -77,21 +78,12 @@ func _initialize_states():
 
 
 func _on_enabled():
-	print("manager_enabled: " + get_parent().name)
 	start_machine()
 
 func _on_disabled():
 	if _current_state != _get_enter_state():
-		print("manager_disabled: " + get_parent().name)
 		var input = _get_input()
 		get_current().exit(_get_enter_state(), input)
 		get_current().disable()
 		_current_state = _get_enter_state()
 		set_process(false)
-
-
-func _on_state_entered(caller, from, input):
-	pass
-
-func _on_state_exited(caller, to, input):
-	pass

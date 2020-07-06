@@ -1,13 +1,12 @@
 extends "res://Scripts/Abilities/StateMachine/StateManager.gd"
 
-export(bool) var __debug = false
-
 enum States {
 	NONE,		# Enter state
 	GROUNDED,	# On the ground.
 	JUMPING,	# Jump button still held
 	ASCENDING,  # Ascending with jump button released
 	FALLING,	# Descending
+	DROPPING	# Falling without jumping first
 }
 
 
@@ -19,7 +18,8 @@ func _initialize_states():
 		States.GROUNDED:     $Grounded,
 		States.JUMPING: 	 $Jumping,
 		States.ASCENDING:	 $Ascending,
-		States.FALLING: 	 $Falling
+		States.FALLING: 	 $Falling,
+		States.DROPPING:	 $Dropping
 	}
 
 
@@ -51,13 +51,11 @@ func get_character_controller():
 	return _controller
 
 
-func _find_initial_state(input):
+func _find_initial_state():
 	if get_ground_checker().is_colliding:
 		return States.GROUNDED
-	elif get_velocity() > 0:
-		return States.JUMPING
 	else:
-		return States.FALLING
+		return States.DROPPING
 
 func enable():
 	_parent.enable()
@@ -71,7 +69,7 @@ func _on_state_entered(caller, from, input):
 		return
 	
 	print("------------------------------")
-	print("GroundHorizontalMovement")
+	print("Jump")
 	print("ENTER:")
 	print("From: " + str(States.keys()[from]))
 	print("To: " + str(States.keys()[caller]))
@@ -82,7 +80,7 @@ func _on_state_exited(caller, to, input):
 		return
 	
 	print("------------------------------")
-	print("GroundHorizontalMovement")
+	print("Jump")
 	print("EXIT:")
 	print("From: " + str(States.keys()[caller]))
 	print("To: " + str(States.keys()[to]))

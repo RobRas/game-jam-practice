@@ -24,8 +24,6 @@ func _ready():
 	_ground_checker = get_node(ground_checker_path)
 	_sprite_controller = get_node(sprite_controller_path)
 	
-	_ground_checker.connect("started_colliding", self, "_on_ground_checker_collided")
-	
 	get_jump_audio().stream = jump_audio_stream
 	get_jump_audio().volume_db = volume_db
 
@@ -51,15 +49,10 @@ func get_ground_checker():
 
 func enable():
 	if not _enabled:
-		print("jump enabled")
 		_enabled = true
 		emit_signal("enabled")
 
 func disable():
 	if _enabled:
-		print("jump disabled")
 		_enabled = false
 		emit_signal("disabled")
-
-func _on_ground_checker_collided():
-	enable()

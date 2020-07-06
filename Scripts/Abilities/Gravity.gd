@@ -39,9 +39,14 @@ func _on_landed():
 
 
 func enable():
-	_enabled = true
-	emit_signal("enabled")
+	if not _enabled:
+		_enabled = true
+		print("Gravity enabled")
+		emit_signal("enabled")
 
 func disable():
-	parent.velocity.y = max(0, parent.velocity.y)
-	emit_signal("disabled")
+	if _enabled:
+		print("Gravity disabled")
+		_enabled = false
+		parent.velocity.y = max(0, parent.velocity.y)
+		emit_signal("disabled")

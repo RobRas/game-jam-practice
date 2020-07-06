@@ -1,6 +1,5 @@
 extends "res://Scripts/Abilities/StateMachine/StateManager.gd"
 
-export(bool) var __debug = false
 
 enum States {
 	NONE,		# Enter state
@@ -9,7 +8,8 @@ enum States {
 	RUNNING, 	# Moving at full speed.
 	STOPPING,	# Slowing to a stop (no input).
 	TURNING,	# Slowing to move the other direction (input opposite velocity).
-	SLOWING		# Moving faster than max speed.
+	SLOWING,	# Moving faster than max speed.
+	AIRBORNE
 }
 
 
@@ -26,8 +26,13 @@ func _initialize_states():
 		States.RUNNING:  $Running,
 		States.STOPPING: $Stopping,
 		States.TURNING:  $Turning,
-		States.SLOWING:  $Slowing
+		States.SLOWING:  $Slowing,
+		States.AIRBORNE: $Airborne
 	}
+
+
+func get_ground_checker():
+	return _parent.get_ground_checker()
 
 
 func get_sprite_controller():
@@ -53,8 +58,15 @@ func get_start_acceleration():
 func get_stop_acceleration():
 	return _parent.stop_acceleration
 
+func get_initial_state():
+	return _find_initial_state()
 
-func _find_initial_state(input):
+
+func _find_initial_state():
+	if not _parent.get_ground_checker().is_colliding:
+		return States.AIRBORNE
+	
+	var input = _get_input()
 	var velocity = _parent.get_velocity()
 	var magnitude = abs(velocity)
 	

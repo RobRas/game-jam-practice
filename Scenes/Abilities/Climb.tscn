@@ -10,9 +10,14 @@
 
 [node name="Climb" type="Node2D"]
 script = ExtResource( 1 )
+climb_speed = 7000
+wall_jump_initial_force = 35000
+grab_cooldown = 0.3
+pre_climb_cooldown = 0.2
 
 [node name="States" type="Node" parent="."]
 script = ExtResource( 3 )
+__debug = true
 
 [node name="Waiting" type="Node" parent="States"]
 script = ExtResource( 5 )
@@ -21,7 +26,7 @@ script = ExtResource( 5 )
 script = ExtResource( 4 )
 
 [node name="GrabTimer" type="Timer" parent="States/Holding"]
-wait_time = 0.4
+wait_time = 0.25
 one_shot = true
 
 [node name="Climbing" type="Node" parent="States"]
@@ -31,6 +36,7 @@ script = ExtResource( 6 )
 script = ExtResource( 7 )
 
 [node name="CooldownDurationTimer" type="Timer" parent="States/Cooldown"]
+one_shot = true
 
 [node name="CollisionChecker" parent="." instance=ExtResource( 2 )]
 
