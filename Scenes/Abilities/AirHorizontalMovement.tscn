@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Scripts/Abilities/AirHorizontalMovement.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Abilities/AirHorizontalMovement/AirHorizontalMovement.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Abilities/AirHorizontalMovement/AirHorizontalMovementIdleState.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/Abilities/AirHorizontalMovement/AirHorizontalMovementStateManager.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/Abilities/AirHorizontalMovement/AirHorizontalMovementStartingState.gd" type="Script" id=4]

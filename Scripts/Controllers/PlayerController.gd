@@ -9,7 +9,8 @@ var _character_controller
 func _process(delta):
 	_process_horizontal_movement_input()
 	_process_jump_input()
-	_process_grab_input()
+	_process_climb_start_input()
+	_process_climb_release_input()
 
 func _process_horizontal_movement_input():
 	_horizontal_movement_input = 0
@@ -23,21 +24,29 @@ func _process_horizontal_movement_input():
 	elif Input.is_action_just_released("move_left") or Input.is_action_just_released("move_right"):
 		_character_controller.emit_signal("horizontal_immediate", false, _horizontal_movement_input)
 
+
 func _process_jump_input():
+	_jump_input = Input.is_action_pressed("jump")
 	if Input.is_action_just_pressed("jump"):
 		_character_controller.emit_signal("jump_immediate", true)
 	elif Input.is_action_just_released("jump"):
 		_character_controller.emit_signal("jump_immediate", false)
-	
-	_jump_input = Input.is_action_pressed("jump")
 
-func _process_grab_input():
-	if Input.is_action_just_pressed("grab"):
-		_character_controller.emit_signal("grab_immediate", true)
-	elif Input.is_action_just_released("grab"):
-		_character_controller.emit_signal("grab_immediate", false)
-	
-	_grab_input = Input.is_action_pressed("grab")
+
+func _process_climb_start_input():
+	_grab_input = Input.is_action_pressed("climb_start")
+	if Input.is_action_just_pressed("climb_start"):
+		_character_controller.emit_signal("climb_start_immediate", true)
+	elif Input.is_action_just_released("climb_start"):
+		_character_controller.emit_signal("climb_start_immediate", false)
+
+
+func _process_climb_release_input():
+	_grab_input = Input.is_action_pressed("climb_release")
+	if Input.is_action_just_pressed("climb_release"):
+		_character_controller.emit_signal("climb_start_immediate", true)
+	elif Input.is_action_just_released("climb_start"):
+		_character_controller.emit_signal("climb_start_immediate", false)
 	
 	
 	
