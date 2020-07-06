@@ -14,3 +14,9 @@ func init(parent, _controller):
 func _on_hazard_hit(hazard):
 	print("ow")
 	$DeathAudio.play()
+
+func enable():
+	pass
+
+func _disable():
+	pass

@@ -3,7 +3,11 @@ extends Node
 
 signal horizontal_immediate(pressed, value)
 signal jump_immediate(pressed)
-signal grab_immediate(pressed)
+signal climb_start_immediate(pressed)
+signal climb_release_immediate(pressed)
+signal climb_vertical_immediate(pressed, value)
+signal climb_jump_immediate(pressed)
+signal climb_jump_horizontal_direction_immediate(pressed, value)
 
 const _UNSELECTED_CONTROLLER_SCENE = preload("res://Scenes/Controllers/UnselectedController.tscn")
 const _PLAYER_CONTROLLER_SCENE = preload("res://Scenes/Controllers/PlayerController.tscn")
@@ -41,7 +45,17 @@ func get_jump():
 		return _controller.get_jump_input_continuous()
 	return false
 
-func get_grab():
-	if _controller.has_method("get_grab_input_immediate"):
-		return _controller.get_grab_input_immediate()
+func get_climb_vertical_movement():
+	if _controller.has_method("get_climb_vertical_movement_input_continuous"):
+		return _controller.get_climb_vertical_movement_input_continuous()
+	return 0.0
+
+func get_climb_jump():
+	if _controller.has_method("get_climb_jump_input_continuous"):
+		return _controller.get_climb_jump_input_continuous()
+	return false
+
+func get_climb_jump_horizontal_direction():
+	if _controller.has_method("get_climb_jump_horizontal_direction_input_continuous"):
+		return _controller.get_climb_jump_horizontal_direction_input_continuous()
 	return false

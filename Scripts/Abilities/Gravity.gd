@@ -37,10 +37,16 @@ func _on_landed():
 	parent.velocity.y = 0
 	$LandAudio.play()
 
-func set_enabled(enabled):
-	_enabled = enabled
+
+func enable():
 	if not _enabled:
+		_enabled = true
+		print("Gravity enabled")
+		emit_signal("enabled")
+
+func disable():
+	if _enabled:
+		print("Gravity disabled")
+		_enabled = false
 		parent.velocity.y = max(0, parent.velocity.y)
 		emit_signal("disabled")
-	else:
-		emit_signal("enabled")

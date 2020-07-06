@@ -1,6 +1,34 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Scripts/Abilities/AirHorizontalMovement.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Abilities/AirHorizontalMovement/AirHorizontalMovement.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Abilities/AirHorizontalMovement/AirHorizontalMovementIdleState.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Abilities/AirHorizontalMovement/AirHorizontalMovementStateManager.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Abilities/AirHorizontalMovement/AirHorizontalMovementStartingState.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Abilities/AirHorizontalMovement/AirHorizontalMovementMovingState.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Abilities/AirHorizontalMovement/AirHorizontalMovementTurningState.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/Abilities/AirHorizontalMovement/AirHorizontalMovementSlowingState.gd" type="Script" id=7]
+[ext_resource path="res://Scripts/Abilities/AirHorizontalMovement/AirHorizontalMovementGroundedState.gd" type="Script" id=8]
 
 [node name="AirHorizontalMovement" type="Node"]
 script = ExtResource( 1 )
+
+[node name="States" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="Idle" type="Node" parent="States"]
+script = ExtResource( 2 )
+
+[node name="Starting" type="Node" parent="States"]
+script = ExtResource( 4 )
+
+[node name="Moving" type="Node" parent="States"]
+script = ExtResource( 5 )
+
+[node name="Turning" type="Node" parent="States"]
+script = ExtResource( 6 )
+
+[node name="Slowing" type="Node" parent="States"]
+script = ExtResource( 7 )
+
+[node name="Grounded" type="Node" parent="States"]
+script = ExtResource( 8 )

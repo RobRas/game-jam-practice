@@ -21,3 +21,9 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	has_mouse = false
+
+func enable():
+	set_process_input(true)
+
+func disable():
+	set_process_input(false)

@@ -1,10 +1,42 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Scripts/Abilities/Climb.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Abilities/Climb/Climb.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/CollisionChecker.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Abilities/Climb/ClimbStateManager.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Abilities/Climb/ClimbHoldingState.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Abilities/Climb/ClimbWaitingState.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Abilities/Climb/ClimbClimbingState.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/Abilities/Climb/ClimbCooldownState.gd" type="Script" id=7]
 
 [node name="Climb" type="Node2D"]
 script = ExtResource( 1 )
+climb_speed = 7000
+wall_jump_initial_force = 35000
+grab_cooldown = 0.3
+pre_climb_cooldown = 0.2
+
+[node name="States" type="Node" parent="."]
+script = ExtResource( 3 )
+__debug = true
+
+[node name="Waiting" type="Node" parent="States"]
+script = ExtResource( 5 )
+
+[node name="Holding" type="Node" parent="States"]
+script = ExtResource( 4 )
+
+[node name="GrabTimer" type="Timer" parent="States/Holding"]
+wait_time = 0.25
+one_shot = true
+
+[node name="Climbing" type="Node" parent="States"]
+script = ExtResource( 6 )
+
+[node name="Cooldown" type="Node" parent="States"]
+script = ExtResource( 7 )
+
+[node name="CooldownDurationTimer" type="Timer" parent="States/Cooldown"]
+one_shot = true
 
 [node name="CollisionChecker" parent="." instance=ExtResource( 2 )]
 
@@ -12,7 +44,5 @@ script = ExtResource( 1 )
 enabled = true
 cast_to = Vector2( 8, 0 )
 collision_mask = 16
-
-[node name="GrabCooldown" type="Timer" parent="."]
-one_shot = true
-[connection signal="timeout" from="GrabCooldown" to="." method="_on_GrabCooldown_timeout"]
+[connection signal="timeout" from="States/Holding/GrabTimer" to="States/Holding" method="_on_GrabTimer_timeout"]
+[connection signal="timeout" from="States/Cooldown/CooldownDurationTimer" to="States/Cooldown" method="_on_CooldownDurationTimer_timeout"]

@@ -36,3 +36,8 @@ func _on_light_glow_complete():
 		_light_glow(direction)
 		direction="down"
 	
+func enable():
+	$Light2D.visible = true
+
+func disable():
+	$Light2D.visible = false

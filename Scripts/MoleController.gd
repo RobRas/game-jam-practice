@@ -10,12 +10,12 @@ var camera_target
 
 func _ready():
 	camera_target = $CameraTarget
-	
+
 	moles = get_tree().get_nodes_in_group("Moles")
-	
+
 	for mole in moles:
 		mole.get_node("Abilities/Selectable").connect("selected", self, "_on_mole_selected")
-	
+
 	var starting_mole = moles[current_mole_index]
 	camera_target.position = starting_mole.position
 	set_current_mole(starting_mole)
@@ -26,10 +26,10 @@ func _process(delta):
 
 func set_current_mole(new_mole):
 	var previous_mole = moles[current_mole_index]
-	previous_mole.set_controller(ControllerType.UNSELECTED)
-	
+	previous_mole.set_character_controller(_CHARACTER_CONTROLLER.ControllerType.UNSELECTED)
+
 	current_mole_index = moles.find(new_mole)
-	new_mole.set_controller(ControllerType.PLAYER)
+	new_mole.set_character_controller(_CHARACTER_CONTROLLER.ControllerType.PLAYER)
 
 	camera_target.follow_target = new_mole
 

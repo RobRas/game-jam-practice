@@ -11,14 +11,18 @@ var velocity = Vector2()
 var enabled = false
 
 
+func _ready():
+	$Abilities.init()
+
 func _physics_process(delta):
 	move_and_slide(velocity * delta)
 
-func set_controller(type):
+func set_character_controller(type):
 	$CharacterController.set_controller(type)
 
 func hazard_hit(hazard):
 	emit_signal("hazard_hit", hazard)
+
 
 func enable(enabled):
 	if enabled:
