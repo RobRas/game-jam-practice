@@ -12,6 +12,4 @@ light_texture = ExtResource( 4 )
 
 [node name="Climb" parent="Abilities" index="6" instance=ExtResource( 3 )]
 position = Vector2( 19, 0 )
-walljump_initial_force = 20000
-jump_path = NodePath("../Jump")
-enable_setter_paths = [ NodePath("../GroundHorizontalMovement"), NodePath("../AirHorizontalMovement"), NodePath("../Jump"), NodePath("../Gravity") ]
+to_disable_on_grab_path = [ NodePath("../Gravity"), NodePath("../GroundHorizontalMovement"), NodePath("../AirHorizontalMovement"), NodePath("../Jump") ]

@@ -11,17 +11,6 @@ enum States {
 }
 
 
-var _jump
-var _character_controller
-
-func init(jump, controller):
-	_jump = jump
-	_character_controller = controller
-	
-	_jump.connect("enabled", self, "_on_enabled")
-	_jump.connect("disabled", self, "_on_disabled")
-
-
 func _get_enter_state():
 	return States.NONE
 
@@ -35,31 +24,31 @@ func _initialize_states():
 
 
 func get_initial_jump_force():
-	return _jump.initial_jump_force
+	return _parent.initial_jump_force
 
 func get_hold_addition():
-	return _jump.hold_addition
+	return _parent.hold_addition
 
 func get_descent_addition():
-	return _jump.descent_addition
+	return _parent.descent_addition
 
 func get_ground_checker():
-	return _jump.get_ground_checker()
+	return _parent.get_ground_checker()
 
 func get_velocity():
-	return _jump.get_velocity()
+	return _parent.get_velocity()
 
 func set_velocity(new_velocity):
-	return _jump.set_velocity(new_velocity)
+	return _parent.set_velocity(new_velocity)
 
 func get_jump_audio():
-	return _jump.get_jump_audio()
+	return _parent.get_jump_audio()
 
 func get_sprite_controller():
-	return _jump.get_sprite_controller()
+	return _parent.get_sprite_controller()
 
 func get_character_controller():
-	return _character_controller
+	return _controller
 
 
 func _find_initial_state(input):
@@ -71,10 +60,10 @@ func _find_initial_state(input):
 		return States.FALLING
 
 func enable():
-	_jump.enable()
+	_parent.enable()
 
 func disable():
-	_jump.disable()
+	_parent.disable()
 
 
 func _on_state_entered(caller, from, input):

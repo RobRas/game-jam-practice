@@ -4,16 +4,20 @@ signal entering(caller, from, input)
 signal exiting(caller, to, input)
 signal disabled
 
-var _manager
 var _state
+var _manager
 
 func init(state, manager):
 	_state = state
 	_manager = manager
+	_late_init()
 
 func update(input, delta):
 	_update_values(input, delta)
 	_set_state(input)
+
+func _late_init():
+	pass
 
 func _update_values(input, delta):
 	pass

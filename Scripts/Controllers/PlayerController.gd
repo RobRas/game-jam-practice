@@ -2,7 +2,9 @@ extends Node
 
 var _horizontal_movement_input = 0.0
 var _jump_input = false
-var _grab_input = false
+var _climb_start_input = false
+var _climb_release_input = false
+var _climb_vertical_movement = 0.0
 
 var _character_controller
 
@@ -11,45 +13,47 @@ func _process(delta):
 	_process_jump_input()
 	_process_climb_start_input()
 	_process_climb_release_input()
+	_process_climb_vertical_movement_input()
 
 func _process_horizontal_movement_input():
-	_horizontal_movement_input = 0
-	if Input.is_action_pressed("move_left"):
-		_horizontal_movement_input -= 1
-	if Input.is_action_pressed("move_right"):
-		_horizontal_movement_input += 1
-	
-	if Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right"):
-		_character_controller.emit_signal("horizontal_immediate", true, _horizontal_movement_input)
-	elif Input.is_action_just_released("move_left") or Input.is_action_just_released("move_right"):
-		_character_controller.emit_signal("horizontal_immediate", false, _horizontal_movement_input)
-
+	_horizontal_movement_input = _process_ternary_input("horizontal", "move_left", "move_right")
 
 func _process_jump_input():
-	_jump_input = Input.is_action_pressed("jump")
-	if Input.is_action_just_pressed("jump"):
-		_character_controller.emit_signal("jump_immediate", true)
-	elif Input.is_action_just_released("jump"):
-		_character_controller.emit_signal("jump_immediate", false)
-
+	_jump_input = _process_binary_input("jump")
 
 func _process_climb_start_input():
-	_grab_input = Input.is_action_pressed("climb_start")
-	if Input.is_action_just_pressed("climb_start"):
-		_character_controller.emit_signal("climb_start_immediate", true)
-	elif Input.is_action_just_released("climb_start"):
-		_character_controller.emit_signal("climb_start_immediate", false)
-
+	_climb_start_input = _process_binary_input("climb_start")
 
 func _process_climb_release_input():
-	_grab_input = Input.is_action_pressed("climb_release")
-	if Input.is_action_just_pressed("climb_release"):
-		_character_controller.emit_signal("climb_start_immediate", true)
-	elif Input.is_action_just_released("climb_start"):
-		_character_controller.emit_signal("climb_start_immediate", false)
+	_climb_release_input = _process_binary_input("climb_release")
+
+func _process_climb_vertical_movement_input():
+	_climb_vertical_movement = _process_ternary_input("climb_vertical", "climb_up", "climb_down")
+
+
+
+func _process_binary_input(input_name):
+	if Input.is_action_just_pressed(input_name):
+		_character_controller.emit_signal(input_name + "_immediate", true)
+	elif Input.is_action_just_released(input_name):
+		_character_controller.emit_signal(input_name + "_immediate", false)
+	return Input.is_action_pressed(input_name)
+
+func _process_ternary_input(base_name, negative_name, positive_name):
+	var value = 0
 	
+	if Input.is_action_pressed(negative_name):
+		value -= 1
+	if Input.is_action_pressed(positive_name):
+		value += 1
 	
+	if Input.is_action_just_pressed(negative_name) or Input.is_action_just_pressed(positive_name):
+		_character_controller.emit_signal(base_name + "_immediate", true, value)
+	elif Input.is_action_just_released(negative_name) or Input.is_action_just_released(positive_name):
+		_character_controller.emit_signal(base_name + "_immediate", false, value)
 	
+	return value
+
 
 func get_horizontal_movement_input_continuous():
 	return _horizontal_movement_input
@@ -57,8 +61,14 @@ func get_horizontal_movement_input_continuous():
 func get_jump_input_continuous():
 	return _jump_input
 
-func get_grab_input_continuous():
-	return _grab_input
+func get_climb_start_input_continuous():
+	return _climb_start_input
+
+func get_climb_release_input_continuous():
+	return _climb_release_input
+
+func get_climb_vertical_movement_input_continuous():
+	return _climb_vertical_movement
 
 
 func enter(character_controller):

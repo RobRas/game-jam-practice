@@ -13,17 +13,6 @@ enum States {
 }
 
 
-var _movement
-var _controller
-
-func init(movement, controller):
-	_movement = movement
-	_controller = controller
-	
-	_movement.connect("enabled", self, "_on_enabled")
-	_movement.connect("disabled", self, "_on_disabled")
-
-
 func _get_input():
 	return _controller.get_horizontal_movement()
 
@@ -42,34 +31,34 @@ func _initialize_states():
 
 
 func get_sprite_controller():
-	return _movement.get_sprite_controller()
+	return _parent.get_sprite_controller()
 
 func get_run_audio():
-	return _movement.get_run_audio()
+	return _parent.get_run_audio()
 
 
 func get_velocity():
-	return _movement.get_velocity()
+	return _parent.get_velocity()
 
 func set_velocity(new_velocity):
-	_movement.set_velocity(new_velocity)
+	_parent.set_velocity(new_velocity)
 
 
 func get_move_speed():
-	return _movement.move_speed
+	return _parent.move_speed
 
 func get_start_acceleration():
-	return _movement.start_acceleration
+	return _parent.start_acceleration
 
 func get_stop_acceleration():
-	return _movement.stop_acceleration
+	return _parent.stop_acceleration
 
 
 func _find_initial_state(input):
-	var velocity = _movement.get_velocity()
+	var velocity = _parent.get_velocity()
 	var magnitude = abs(velocity)
 	
-	if magnitude > _movement.move_speed:
+	if magnitude > _parent.move_speed:
 		return States.SLOWING
 	elif input == 0:
 		if velocity == 0:
@@ -78,9 +67,9 @@ func _find_initial_state(input):
 			return States.STOPPING
 	else:
 		if sign(velocity) == sign(input):
-			if magnitude < _movement.move_speed:
+			if magnitude < _parent.move_speed:
 				return States.STARTING
-			elif magnitude == _movement.move_speed:
+			elif magnitude == _parent.move_speed:
 				return States.RUNNING
 		else:
 			return States.TURNING

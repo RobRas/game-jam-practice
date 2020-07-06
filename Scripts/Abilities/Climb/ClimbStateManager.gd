@@ -4,54 +4,54 @@ export(bool) var __debug = false
 
 enum States {
 	NONE,		# Enter state
+	WAITING,	# Have not grabbed yet.
 	HOLDING,	# Standing still.
 	CLIMBING,	# Moving vertically
 	COOLDOWN 	# Cannot grab
 }
 
 
-var _climb
-var _controller
-
-func init(climb, controller):
-	_climb = climb
-	_controller = controller
-	
-	_climb.connect("enabled", self, "_on_enabled")
-	_climb.connect("disabled", self, "_on_disabled")
-
-
 func _get_input():
-	pass
+	return _controller.get_climb_vertical_movement()
 
 func _get_enter_state():
 	return States.NONE
 
 func _initialize_states():
 	state_nodes = {
-		States.WAITING:  $Waiting
+		States.WAITING:  $Waiting,
 		States.HOLDING:  $Holding,
 		States.CLIMBING: $Climbing,
 		States.COOLDOWN: $Cooldown,
 	}
 
+func get_grab_timer_cooldown():
+	return _parent.get_grab_timer_cooldown()
+
 
 func get_velocity():
-	return _climb.get_velocity()
+	return _parent.get_velocity()
 
 func set_velocity(new_velocity):
-	_climb.set_velocity(new_velocity)
+	_parent.set_velocity(new_velocity)
 
 
-func get_climb_speed():
-	return _climb.climb_speed
+func get_parent_speed():
+	return _parent.climb_speed
 
+func get_collision_checker():
+	return _parent.get_collision_checker()
+
+
+func disable_abilities():
+	_parent.set_disables_on_grab(true)
+
+func enable_abilities():
+	_parent.set_disables_on_grab(false)
+	
 
 func _find_initial_state(input):
-	if input == 0:
-		return States.HOLDING
-	else:
-		States.CLIMBING
+	return States.WAITING
 
 
 func _on_state_entered(caller, from, input):

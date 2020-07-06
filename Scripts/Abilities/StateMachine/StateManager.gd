@@ -3,9 +3,21 @@ extends Node
 var state_nodes = { }
 var _current_state
 
+var _parent
+var _controller
+
 func _ready():
 	set_process(false)
 	_initialize_states()
+	
+
+func init(parent, controller):
+	_parent = parent
+	_controller = controller
+	
+	_parent.connect("enabled", self, "_on_enabled")
+	_parent.connect("disabled", self, "_on_disabled")
+	
 	_current_state = _get_enter_state()
 	for state in state_nodes.keys():
 		var state_node = get_state_node(state)
@@ -13,6 +25,11 @@ func _ready():
 		state_node.init(state, self)
 		state_node.connect("entering", self, "_on_state_entered")
 		state_node.connect("exiting", self, "_on_state_exited")
+	
+	_further_init()
+
+func _further_init():
+	pass
 
 func start_machine():
 	set_process(true)
@@ -36,6 +53,8 @@ func set_state(new_state):
 	var new_state_node = get_current()
 	new_state_node.enter(previous_state, input)
 
+func get_character_controller():
+	return _controller
 
 func get_state_node(state):
 	return state_nodes[state]
