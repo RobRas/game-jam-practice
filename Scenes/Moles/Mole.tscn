@@ -17,7 +17,45 @@
 [ext_resource path="res://Audio/Death.wav" type="AudioStream" id=15]
 [ext_resource path="res://Scenes/Abilities/AirHorizontalMovement.tscn" type="PackedScene" id=17]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 80, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 16 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "Run",
+"speed": 8.0
+}, {
+"frames": [ SubResource( 6 ) ],
+"loop": true,
+"name": "Jump",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 24, 31 )
 
 [node name="Mole" type="KinematicBody2D" groups=[
@@ -47,6 +85,7 @@ ground_checker_path = NodePath("../../GroundChecker")
 
 [node name="Jump" parent="Abilities" instance=ExtResource( 11 )]
 position = Vector2( 0, -28 )
+initial_jump_force = 25000
 jump_audio_stream = ExtResource( 14 )
 animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
 
