@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://Scenes/Moles/BASE MOLE.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://Art_Assets/Moelz/SpriteSheets/BASE MOLE.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/Mole.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/CollisionChecker.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Abilities/Abilities.tscn" type="PackedScene" id=4]
@@ -15,48 +15,10 @@
 [ext_resource path="res://Audio/Moving.wav" type="AudioStream" id=13]
 [ext_resource path="res://Audio/Jump.wav" type="AudioStream" id=14]
 [ext_resource path="res://Audio/Death.wav" type="AudioStream" id=15]
-[ext_resource path="res://Scenes/Abilities/AirHorizontalMovement.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Scenes/Abilities/AirHorizontalMovement.tscn" type="PackedScene" id=16]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 1 )
-region = Rect2( 16, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 48, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
-region = Rect2( 80, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=6]
-flags = 4
-atlas = ExtResource( 16 )
-region = Rect2( 0, 0, 16, 16 )
-
-[sub_resource type="SpriteFrames" id=7]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
-"loop": true,
-"name": "Run",
-"speed": 8.0
-}, {
-"frames": [ SubResource( 6 ) ],
-"loop": true,
-"name": "Jump",
-"speed": 5.0
-} ]
-
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 24, 31 )
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 14, 30 )
 
 [node name="Mole" type="KinematicBody2D" groups=[
 "Moles",
@@ -79,12 +41,12 @@ land_audio_stream = ExtResource( 12 )
 animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
 run_audio_stream = ExtResource( 13 )
 
-[node name="AirHorizontalMovement" parent="Abilities" instance=ExtResource( 17 )]
+[node name="AirHorizontalMovement" parent="Abilities" instance=ExtResource( 16 )]
 ground_horizontal_movement_path = NodePath("../GroundHorizontalMovement")
 ground_checker_path = NodePath("../../GroundChecker")
 
 [node name="Jump" parent="Abilities" instance=ExtResource( 11 )]
-position = Vector2( 0, -28 )
+position = Vector2( 0, -56 )
 initial_jump_force = 25000
 jump_audio_stream = ExtResource( 14 )
 animated_sprite_path = NodePath("../../SpriteScaling/AnimatedSprite")
@@ -94,7 +56,6 @@ death_audio_stream = ExtResource( 15 )
 volume_db = 12.0
 
 [node name="Light" parent="Abilities" instance=ExtResource( 5 )]
-light_texture = null
 
 [node name="Selectable" parent="Abilities" instance=ExtResource( 8 )]
 
@@ -102,21 +63,22 @@ light_texture = null
 position = Vector2( 6, 2.5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="SpriteScaling"]
+position = Vector2( 0, -34.5 )
 scale = Vector2( 4, 4 )
 frames = ExtResource( 1 )
-animation = "Idle"
 
 [node name="EnvironmentCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 4, -30 )
 shape = SubResource( 1 )
 
 [node name="GroundChecker" parent="." instance=ExtResource( 3 )]
 
 [node name="RightRay" type="RayCast2D" parent="GroundChecker"]
-position = Vector2( 20, 28 )
+position = Vector2( 15, -4 )
 enabled = true
 cast_to = Vector2( 0, 5 )
 
 [node name="LeftRay" type="RayCast2D" parent="GroundChecker"]
-position = Vector2( -20, 28 )
+position = Vector2( -11, -4 )
 enabled = true
 cast_to = Vector2( 0, 5 )

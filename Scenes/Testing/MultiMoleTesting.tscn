@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/Ground.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Moles/MoleMole.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Moles/Moleander.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/MoleController.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Hazard.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Art_Assets/Background.png" type="Texture" id=5]
-[ext_resource path="res://Scenes/Moles/NakedMole.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Moles/Molington.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Food.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/Moles/BrownMole.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Moles/Molias.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Audio/MoleTheme.ogg" type="AudioStream" id=9]
 
 [node name="MultiMoleTesting" type="Node"]
@@ -94,17 +94,16 @@ color = Color( 0.278431, 0.262745, 0.262745, 1 )
 
 [node name="Moles" type="Node" parent="."]
 
-[node name="Naked" parent="Moles" instance=ExtResource( 6 )]
-position = Vector2( 242.893, 69.928 )
-
-[node name="BrownMole" parent="Moles" instance=ExtResource( 8 )]
-position = Vector2( 100.256, 69.971 )
-scale = Vector2( 1.01206, 0.992703 )
-
-[node name="MoleMole" parent="Moles" instance=ExtResource( 2 )]
-position = Vector2( 561.522, 169.583 )
-
 [node name="MoleController" parent="." instance=ExtResource( 3 )]
+
+[node name="Moleander" parent="MoleController" instance=ExtResource( 2 )]
+position = Vector2( 567.38, 198.853 )
+
+[node name="Molias" parent="MoleController" instance=ExtResource( 8 )]
+position = Vector2( -665.454, 10.5886 )
+
+[node name="Molington" parent="MoleController" instance=ExtResource( 6 )]
+position = Vector2( -95.4604, 512.248 )
 
 [node name="Food" parent="." instance=ExtResource( 7 )]
 position = Vector2( 466.451, 113.05 )
