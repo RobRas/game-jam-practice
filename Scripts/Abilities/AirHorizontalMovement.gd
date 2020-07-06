@@ -46,7 +46,7 @@ func enable():
 
 func disable():
 	if _enabled:
-		_enabled = true
+		_enabled = false
 		emit_signal("disabled")
 
 func _on_ground_started_colliding():
