@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Art_Assets/Moelz/SpriteSheets/Moleander Orange Hat.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://Art_Assets/Moelz/SpriteSheets/Moleander Pink.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scenes/Moles/Mole.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Abilities/Climb.tscn" type="PackedScene" id=3]
 
 [node name="Moleander" instance=ExtResource( 2 )]
 
@@ -14,16 +15,19 @@ ground_checker_path = NodePath("../../../Moleander/GroundChecker")
 
 [node name="GroundHorizontalMovement" parent="Abilities" index="1"]
 ground_checker_path = NodePath("../../../Moleander/GroundChecker")
-animated_sprite_path = NodePath("../../../Moleander/SpriteScaling/AnimatedSprite")
 
 [node name="AirHorizontalMovement" parent="Abilities" index="2"]
-ground_horizontal_movement_path = NodePath("../../../Moleander/Abilities/GroundHorizontalMovement")
 ground_checker_path = NodePath("../../../Moleander/GroundChecker")
 
 [node name="Jump" parent="Abilities" index="3"]
 ground_checker_path = NodePath("../../../Moleander/GroundChecker")
-animated_sprite_path = NodePath("../../../Moleander/SpriteScaling/AnimatedSprite")
 
-[node name="AnimatedSprite" parent="SpriteScaling" index="0"]
+[node name="Climb" parent="Abilities" index="7" instance=ExtResource( 3 )]
+position = Vector2( 13, -34 )
+sprite_controller_path = NodePath("../../SpriteController")
+ground_checker_path = NodePath("../../GroundChecker")
+to_disable_on_grab_path = [ NodePath("../Gravity"), NodePath("../GroundHorizontalMovement"), NodePath("../AirHorizontalMovement"), NodePath("../Jump") ]
+
+[node name="AnimatedSprite" parent="SpriteController" index="0"]
 frames = ExtResource( 1 )
 animation = "Idle"

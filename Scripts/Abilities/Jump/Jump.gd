@@ -47,6 +47,9 @@ func get_jump_audio():
 func get_ground_checker():
 	return _ground_checker
 
+func get_head_collision_checker():
+	return $HeadCollisionChecker
+
 func enable():
 	if not _enabled:
 		_enabled = true

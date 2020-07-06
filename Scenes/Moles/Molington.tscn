@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/Moles/Mole.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Art_Assets/Moelz/SpriteSheets/Molington Red Hat.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://Art_Assets/Moelz/SpriteSheets/Molington Brown.tres" type="SpriteFrames" id=2]
 
 [node name="Molington" instance=ExtResource( 1 )]
 
@@ -14,16 +14,13 @@ ground_checker_path = NodePath("../../../Molington/GroundChecker")
 
 [node name="GroundHorizontalMovement" parent="Abilities" index="1"]
 ground_checker_path = NodePath("../../../Molington/GroundChecker")
-animated_sprite_path = NodePath("../../../Molington/SpriteScaling/AnimatedSprite")
 
 [node name="AirHorizontalMovement" parent="Abilities" index="2"]
-ground_horizontal_movement_path = NodePath("../../../Molington/Abilities/GroundHorizontalMovement")
 ground_checker_path = NodePath("../../../Molington/GroundChecker")
 
 [node name="Jump" parent="Abilities" index="3"]
 ground_checker_path = NodePath("../../../Molington/GroundChecker")
-animated_sprite_path = NodePath("../../../Molington/SpriteScaling/AnimatedSprite")
 
-[node name="AnimatedSprite" parent="SpriteScaling" index="0"]
+[node name="AnimatedSprite" parent="SpriteController" index="0"]
 frames = ExtResource( 2 )
 animation = "Idle"

@@ -50,6 +50,9 @@ func get_sprite_controller():
 func get_character_controller():
 	return _controller
 
+func get_head_collision_checker():
+	return _parent.get_head_collision_checker()
+
 
 func _find_initial_state():
 	if get_ground_checker().is_colliding:
