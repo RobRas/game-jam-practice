@@ -22,9 +22,6 @@ ground_checker_path = NodePath("../../../Molias/GroundChecker")
 [node name="Jump" parent="Abilities" index="3"]
 ground_checker_path = NodePath("../../../Molias/GroundChecker")
 
-[node name="Light" parent="Abilities" index="5"]
-light_texture = null
-
 [node name="AnimatedSprite" parent="SpriteController" index="0"]
 frames = ExtResource( 2 )
 animation = "Idle"
