@@ -31,4 +31,4 @@ to_disable_on_grab_path = [ NodePath("../Gravity"), NodePath("../GroundHorizonta
 
 [node name="AnimatedSprite" parent="SpriteController" index="0"]
 frames = ExtResource( 1 )
-animation = "Idle"
+animation = "Climb"
