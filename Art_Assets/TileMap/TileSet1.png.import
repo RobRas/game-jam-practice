@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Mole Climb Test2.png-91536c18bd95aa2b2788d378c2ad25d4.stex"
+path="res://.import/TileSet1.png-df37a8457792aafb830d170aaeb4bf24.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art_Assets/Moelz/Climb Animation/Mole Climb Test2.png"
-dest_files=[ "res://.import/Mole Climb Test2.png-91536c18bd95aa2b2788d378c2ad25d4.stex" ]
+source_file="res://Art_Assets/TileMap/TileSet1.png"
+dest_files=[ "res://.import/TileSet1.png-df37a8457792aafb830d170aaeb4bf24.stex" ]
 
 [params]
 
